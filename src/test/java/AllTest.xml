@@ -1,0 +1,6 @@
+<suite name="AllTest" thread-count="1">
+	<suite-files>
+		<suite-file path="./JPMC_Demo.xml" />
+	
+	</suite-files>
+</suite>
