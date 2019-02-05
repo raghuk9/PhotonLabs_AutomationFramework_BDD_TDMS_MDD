@@ -108,6 +108,38 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.14</version>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>com.vimalselvam</groupId>
+
+			<artifactId>cucumber-extentsreport</artifactId>
+
+			<version>3.0.0</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>com.aventstack</groupId>
+
+			<artifactId>extentreports</artifactId>
+
+			<version>3.0.6</version>
+
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.github.mkolisnyk/cucumber-reports -->
+		<dependency>
+
+			<groupId>com.github.mkolisnyk</groupId>
+
+			<artifactId>cucumber-reports</artifactId>
+
+			<version>1.0.7</version>
+
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>

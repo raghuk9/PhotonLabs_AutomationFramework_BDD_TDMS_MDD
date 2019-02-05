@@ -22,12 +22,11 @@ import cucumber.api.CucumberOptions;
 //@RunWith(Cucumber.class)
 @CucumberOptions
 		(
-		plugin = { "html:target/cucumber-html-report", "json:target/cucumber.json", "pretty:target/cucumber-pretty.txt",   "usage:target/cucumber-usage.json", "junit:target/cucumber-results.xml" },
+		plugin = { "html:target/cucumber-html-report", "json:target/cucumber.json", "pretty:target/cucumber-pretty.txt",   "usage:target/cucumber-usage.json", "junit:target/cucumber-results.xml","com.cucumber.listener.ExtentCucumberFormatter:target/AutomationExtentReport.html" },
 		glue = "com/photon/framework/StepDefinition", 
-		features = "src/test/java/com/photon/framework/Feature", 
-		//format = { "html:target/cucumber-htmlreport", "json:target/cucumber-report.json" }, 
-		tags = { "@JCP_Demo"},
-		//tags = { "@JCP_Login"}, 
+		features = "src/test/java/com/photon/framework/demo/feature", 
+		tags = { "@Wynn_Demo"},
+		
 		monochrome = true
 		)
 public class CucumberRunnerTest  {                                                                                                                                    // @Walgreens_HomeScreen_Scenario  //@JPMC_Login_Scenario

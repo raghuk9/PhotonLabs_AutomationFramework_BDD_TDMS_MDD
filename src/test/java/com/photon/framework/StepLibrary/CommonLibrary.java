@@ -2,13 +2,17 @@ package com.photon.framework.StepLibrary;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.ConfigurationFactory;
@@ -18,6 +22,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.eclipse.jetty.util.IO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -36,6 +41,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.cucumber.listener.Reporter;
 import com.photon.framework.Constant.UserConfig;
 
 import cucumber.api.DataTable;
@@ -66,6 +72,7 @@ public class CommonLibrary {
 	public static Configuration config = null;
 	public static String highlightedWebElementStyle;
 	public static WebElement highlightedWebElement;
+	public static FileWriter reportFile=null;
 
 	public CommonLibrary() throws ConfigurationException, IOException {
 		ConfigurationFactory factory = new ConfigurationFactory("config/config.xml");
@@ -92,7 +99,7 @@ public class CommonLibrary {
 			} else {
 				System.out.println("**********Given Browser Name is Wrong************");
 			}
-			webDriver.manage().window().maximize();
+			//webDriver.manage().window().maximize();
 		} else if(config.getString("breakPoint").equalsIgnoreCase("Mobile")) {
 			
 			if ("iOS".equalsIgnoreCase(config.getString("operatingSystem"))) {
@@ -127,7 +134,7 @@ public class CommonLibrary {
 			Thread.sleep(1000);
 			Runtime.getRuntime().exec(adbPath + "/adb" + " start-server");
 			Thread.sleep(1000);
-			Runtime.getRuntime().exec(UserConfig.projectLocation + "/drivers/chromedriver");
+			Runtime.getRuntime().exec(UserConfig.projectLocation);
 			Thread.sleep(1000);//UserConfig
 			System.out.println("initialising the browser");
 			DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -442,7 +449,7 @@ public class CommonLibrary {
 	public static void highlightElement(WebElement element,WebDriver webDriver) {
 		for (int i = 0; i < 1; i++) {
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
-			js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, "color: black; border: 3px solid black;");
+			js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, "border: 3px solid red;");
 		}
 	}
 
@@ -468,26 +475,26 @@ public class CommonLibrary {
 	}
 
 
-	/*
-	 *  Common Method for Click
-	 */
-	public static boolean isElementPresentVerifyClick(String objectProperty) {
-		boolean isVerifiedAndClicked = false;
-		browserWithElementWait = new WebDriverWait(webDriver,30);
-		try {
-			element = getElementByProperty(objectProperty, webDriver);
-			if (element != null) {
-				t1=System.currentTimeMillis();
-				element.click();
-				isVerifiedAndClicked = true;
-			} else {
-				throw new Exception("Object Couldn't be retrieved and clicked");
-			}
-		} catch (Exception e) {
-			element = null;
-		}
-		return isVerifiedAndClicked;
-	}
+//	/*
+//	 *  Common Method for Click
+//	 */
+//	public static boolean isElementPresentVerifyClick(String objectProperty) {
+//		boolean isVerifiedAndClicked = false;
+//		browserWithElementWait = new WebDriverWait(webDriver,30);
+//		try {
+//			element = getElementByProperty(objectProperty, webDriver);
+//			if (element != null) {
+//				t1=System.currentTimeMillis();
+//				element.click();
+//				isVerifiedAndClicked = true;
+//			} else {
+//				throw new Exception("Object Couldn't be retrieved and clicked");
+//			}
+//		} catch (Exception e) {
+//			element = null;
+//		}
+//		return isVerifiedAndClicked;
+//	}
 
 
 	
@@ -678,4 +685,156 @@ public class CommonLibrary {
 		book.close();
 		return col1;
 	}
+	
+	
+	/**
+	 * Muralikrishnan G
+	 * Method to Log the text to Scenario steps in Extend Report 
+	 * 
+	 */
+
+	public static void log(String message)
+	{
+		
+		Reporter.addStepLog(message);
+
+	}
+	
+	/**
+	 * Muralikrishnan G
+	 * Method to create CSV file to update the Dom load and Page load of a page
+	 * @throws IOException
+	 * 
+	 */
+
+	public static void initReportFile() throws IOException {
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy-hh-mm-ss");
+			Date date = new Date();
+			String reportFileFullPath = UserConfig.reportDir + UserConfig.reportFile + "_" 
+					+ sdf.format(date) + ".csv";
+			File file = new File(reportFileFullPath);
+			file.createNewFile();
+			reportFile =  new FileWriter(reportFileFullPath, true);
+			reportFile.append("DomLoadTime (sec),PageLoadTime (sec) ,From Page,To Page,ResponseCode,ResponseMessage,ThreadName,"
+					+ "DataType,Success,FailureMessage,Bytes,GrpThreads,AllThreads,Latency,IdleTime");
+			reportFile.append("\n");
+			reportFile.flush();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new IOException(e);
+		}
+	}
+	
+	/**
+	 * Muralikrishnan G
+	 * Method to Close the Report file
+	 * @throws IOException
+	 * 
+	 */
+
+	public static void closeReportFile() throws IOException {
+		reportFile.flush();
+		reportFile.close();
+	}
+	
+	/**
+	 * Muralikrishnan G
+	 * Method to calculate the Page-load time while you navigate from one page to another Page
+	 * @param  Webelement
+	 * @throws 
+	 */
+
+	public  static boolean isElementPresentVerifyClickPageLoad(String objectProperty) {
+		boolean isVerifiedAndClicked = false;
+		browserWithElementWait = new WebDriverWait(webDriver,config.getInt("elementWaitInSeconds"));
+		element = getElementByProperty(objectProperty, webDriver);
+		String PageName= webDriver.getTitle();
+		if(config.getString("Pageload").equalsIgnoreCase("yes")){
+			try {
+				browserWithElementWait.until(ExpectedConditions.elementToBeClickable(element));
+				if (element != null) {
+					element.click();
+					isVerifiedAndClicked = true;
+					JavascriptExecutor js =((JavascriptExecutor) webDriver); 
+					Object val = js.executeScript("" +
+							"try{window.performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {};" +
+							"return(parseInt(window.performance.timing.domContentLoadedEventEnd)-parseInt(window.performance.timing.fetchStart));}catch(e){alert(e);}");
+					String s=val.toString();
+					System.out.println("Dom Load "+s);
+
+					// Get Page Load
+					Object val1 = js.executeScript("" +
+							"try{window.performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {};" +
+							"return(parseInt(window.performance.timing.domComplete)-parseInt(window.performance.timing.navigationStart));}catch(e){alert(e);}");
+					String s1=val1.toString();
+
+
+					// Casting to double for computes
+					double DomLoad = (Double.parseDouble(s)/1000.0);
+					double PageLoad = (Double.parseDouble(s1)/1000.0);
+
+					// Casting again for concatenation and return
+					String DomLoadString = Double.toString(DomLoad);
+					String PageLoadString = Double.toString(PageLoad);
+
+					String LandingPagename = webDriver.getTitle();
+
+					ReportObject ro = new ReportObject(DomLoadString, PageLoadString,PageName,LandingPagename, config.getString("clientName"), 0, 0);
+					logPerfMetrics(ro);	
+				} 
+
+				else {
+					throw new Exception("Object Couldn't be retrieved and clicked");
+				}
+			} catch (Exception e) {
+				element = null;
+			}
+
+		}else{
+			
+			try {
+				browserWithElementWait.until(ExpectedConditions.elementToBeClickable(element));
+
+				if (element != null) {
+
+					element.click();
+					isVerifiedAndClicked = true;
+					//screenshotForAllSteps(element);
+				} else {
+					
+					throw new Exception("Object Couldn't be retrieved and clicked");
+				}
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			
+		}
+		return isVerifiedAndClicked;
+
+	}
+	
+	/**
+	 * Muralikrishnan G
+	 * Appending the page load Time and Dom load Time to the CSV File
+	 * @param - Report Object
+	 * @throws IO Exception
+	 * 
+	 */
+
+	public static void logPerfMetrics(ReportObject ro1) throws IOException{
+
+		reportFile.append(ro1.toString());
+		reportFile.append("\n");
+		reportFile.flush();
+		
+	}
+	
+	public static WebDriver getWebdriver(){
+		
+		return webDriver;
+	}
+
 }
