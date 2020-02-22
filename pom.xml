@@ -114,10 +114,16 @@
 			<version>1.10</version>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>io.appium</groupId>
 			<artifactId>java-client</artifactId>
 			<version>5.0.3</version>
+		</dependency> -->
+		
+		<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>7.3.0</version>
 		</dependency>
 
 
@@ -217,5 +223,11 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<properties>
+		<lang>en-us</lang>
+		<platform>webPortal_Dev</platform>
+		<jira.update>webPortal_Dev</jira.update>
+		<jira.createBug>webPortal_Dev</jira.createBug>
+	</properties>
 
 </project>

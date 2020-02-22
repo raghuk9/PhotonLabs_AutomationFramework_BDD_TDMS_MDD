@@ -50,10 +50,28 @@ public interface JPMCPlatform {
 
     void submitInformation() throws Exception;
 
-    void validateErrorMessageWhileSignUp() throws Exception;
+    void validateErrorMessageWhileSignUp(String errorMessage) throws Exception;
   
     void loginWithUserName(String username) throws Exception;
 
     void loginWithPassword(String password) throws Exception;
+    
+    void navigateToSigninPage() throws Exception;
+    
+    void validateLoginUserNameField() throws Exception;
+    
+    void validateLoginpasswordField() throws Exception;
+    
+    void validateLoginrememberMe(String rememberMe) throws Exception;
+    
+    void validateLoginuseTokenLink(String useToken) throws Exception;
+    
+    void validateLoginsignInButton(String signInButton) throws Exception;
+    
+    void validateLoginforgotLink(String forgotLink) throws Exception;
+    
+    void validateLoginsignUpLink(String signUp) throws Exception;
+    
+    void validateSignuperrorMessage(String errorMessaage) throws Exception;
 
 }

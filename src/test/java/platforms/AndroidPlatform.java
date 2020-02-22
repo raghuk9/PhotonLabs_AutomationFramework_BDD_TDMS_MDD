@@ -220,7 +220,7 @@ public class AndroidPlatform implements MobilePlatform {
                     return driver.findElement(elment);
                 } else {
                     WebElement finalFrameElement = driver.findElement(frameElement);
-                    scrollVertical(finalFrameElement, 3000, isScrollUp);
+//                    scrollVertical(finalFrameElement, 3000, isScrollUp);
                 }
             }
             return null;
@@ -232,31 +232,31 @@ public class AndroidPlatform implements MobilePlatform {
     // To scroll down or scroll up this method can be utilized. The exact frame
     // to
     // scrolled should be passed as a parameter.
-    private void scrollVertical(WebElement frameElement, int duration, boolean isScrollUp) throws Exception {
-        try {
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-            Point startCoordinatesOfYearList = frameElement.getLocation();
-            Point centerCoordinatesOfYearList = ((MobileElement) frameElement).getCenter();
-            int frameStartXCoordinate = startCoordinatesOfYearList.getX();
-            int frameStartYCoordinate = startCoordinatesOfYearList.getY();
-            int centerXCoordinate = centerCoordinatesOfYearList.getX();
-            int centerYCoordinate = centerCoordinatesOfYearList.getY();
-            int commonXCoordinate = ((centerXCoordinate - frameStartXCoordinate) / 2);
-            int startYCoordinate, endYCoordinate;
-            if (isScrollUp) {
-                startYCoordinate = frameStartYCoordinate + 50;
-                endYCoordinate = ((centerYCoordinate - frameStartYCoordinate) + centerYCoordinate) - 50;
-            } else {
-                startYCoordinate = ((centerYCoordinate - frameStartYCoordinate) + centerYCoordinate) - 50;
-                endYCoordinate = frameStartYCoordinate + 50;
-            }
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-            new TouchAction(driver).press(commonXCoordinate, startYCoordinate).waitAction(Duration.ofMillis(duration))
-                    .moveTo(commonXCoordinate, endYCoordinate).release().perform();
-        } catch (Exception e) {
-            throw new Exception("Unknown error while scrolling vertically", e);
-        }
-    }
+//    private void scrollVertical(WebElement frameElement, int duration, boolean isScrollUp) throws Exception {
+//        try {
+//            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//            Point startCoordinatesOfYearList = frameElement.getLocation();
+//            Point centerCoordinatesOfYearList = ((MobileElement) frameElement).getCenter();
+//            int frameStartXCoordinate = startCoordinatesOfYearList.getX();
+//            int frameStartYCoordinate = startCoordinatesOfYearList.getY();
+//            int centerXCoordinate = centerCoordinatesOfYearList.getX();
+//            int centerYCoordinate = centerCoordinatesOfYearList.getY();
+//            int commonXCoordinate = ((centerXCoordinate - frameStartXCoordinate) / 2);
+//            int startYCoordinate, endYCoordinate;
+//            if (isScrollUp) {
+//                startYCoordinate = frameStartYCoordinate + 50;
+//                endYCoordinate = ((centerYCoordinate - frameStartYCoordinate) + centerYCoordinate) - 50;
+//            } else {
+//                startYCoordinate = ((centerYCoordinate - frameStartYCoordinate) + centerYCoordinate) - 50;
+//                endYCoordinate = frameStartYCoordinate + 50;
+//            }
+//            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//            new TouchAction(driver).press(commonXCoordinate, startYCoordinate).waitAction(Duration.ofMillis(duration))
+//                    .moveTo(commonXCoordinate, endYCoordinate).release().perform();
+//        } catch (Exception e) {
+//            throw new Exception("Unknown error while scrolling vertically", e);
+//        }
+//    }
 
     @Override
     public void logOut() throws Exception {
@@ -394,10 +394,6 @@ public class AndroidPlatform implements MobilePlatform {
 
     }
 
-    @Override
-    public void validateErrorMessageWhileSignUp() throws Exception {
-
-    }
 
     @Override
     public void loginWithUserName(String username) throws Exception {
@@ -418,5 +414,65 @@ public class AndroidPlatform implements MobilePlatform {
             throw new Exception("Unknown error while trying to enter password");
         }
     }
+
+	@Override
+	public void validateLoginUserNameField() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validateLoginpasswordField() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validateLoginrememberMe(String rememberMe) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validateLoginuseTokenLink(String useToken) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validateLoginsignInButton(String signInButton) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validateLoginforgotLink(String forgotLink) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validateLoginsignUpLink(String signUp) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validateSignuperrorMessage(String errorMessaage) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validateErrorMessageWhileSignUp(String errorMessage) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void navigateToSigninPage() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

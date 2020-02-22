@@ -3,7 +3,6 @@ package stepDefinitions;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.json.simple.parser.ParseException;
@@ -104,6 +103,52 @@ public class JpmcRewardsPage extends AbstractStepDefinition {
 
     @Then("^user should validate the error messaage$")
     public void userShouldValidateTheErrorMessaage() throws Throwable {
-        platform.validateErrorMessageWhileSignUp();
+    	String data =getDataValue("errorMessage");
+        platform.validateErrorMessageWhileSignUp(data);
+    }
+    
+    @Then("^navigate to login page$")
+    public void navigate_to_login_page() throws Throwable {
+    	platform.navigateToSigninPage();
+    }
+
+    @Then("^validate userNameField is displaying$")
+    public void validate_userNameField_is_displaying() throws Throwable {
+    	platform.validateLoginUserNameField();
+    }
+
+    @Then("^validate passwordField is displaying$")
+    public void validate_passwordField_is_displaying() throws Throwable {
+    	platform.validateLoginpasswordField();
+    }
+
+    @Then("^validate rememberMe check box and text$")
+    public void validate_rememberMe_check_box_and_text() throws Throwable {
+    	String data =getDataValue("rememberMe");
+    	platform.validateLoginrememberMe(data);
+    }
+
+    @Then("^validate useToken link$")
+    public void validate_useToken_link() throws Throwable {
+    	String data =getDataValue("useToken");
+    	platform.validateLoginuseTokenLink(data);
+    }
+
+    @Then("^validate signInButton and text$")
+    public void validate_signInButton_and_text() throws Throwable {
+    	String data =getDataValue("signInButton");
+    	platform.validateLoginsignInButton(data);
+    }
+
+    @Then("^validate forgotLink in page$")
+    public void validate_forgotLink_in_page() throws Throwable {
+    	String data =getDataValue("forgotLink");
+    	platform.validateLoginforgotLink(data);
+    }
+
+    @Then("^validate signUp link in page$")
+    public void validate_signUp_link_in_page() throws Throwable {
+    	String data =getDataValue("signUp");
+    	platform.validateLoginsignUpLink(data);
     }
 }

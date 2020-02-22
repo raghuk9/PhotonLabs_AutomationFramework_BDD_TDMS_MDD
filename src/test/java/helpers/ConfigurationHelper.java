@@ -23,10 +23,15 @@ public class ConfigurationHelper {
 	}
 
 	public static String getPlatform() throws FileNotFoundException, IOException, ParseException {
-		JSONParser parser = new JSONParser();
-		Object obj = parser.parse(new FileReader("src/test/configuration/RunConfig.json"));
-		JSONObject jsonObject = (JSONObject) obj;
-		platformStr = (String) jsonObject.get("platform");
+		String platform = System.getProperty("platform");
+		if(platform==null) {
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(new FileReader("src/test/configuration/RunConfig.json"));
+			JSONObject jsonObject = (JSONObject) obj;
+			platformStr = (String) jsonObject.get("platform");
+		}else {
+			platformStr = platform;	
+		}		
 		return platformStr;
 	}
 	
