@@ -1,7 +1,7 @@
 Feature: JPMCSignin 
 	Description: Validate JPMC Login and Signup
 
-@smoke1
+@Smoke1 @Regression
 Scenario: Verify login with invalid credentials 
 	When JPMC application is launched 
 	Then navigate to login page 
@@ -13,7 +13,7 @@ Scenario: Verify login with invalid credentials
 	And validate forgotLink in page 
 	And validate signUp link in page 
 	
-@smoke
+@Smoke1 @Regression
 Scenario: Verify signup in JPMC rewards page 
 	When JPMC application is launched 
 	When user signup in jpmc rewards page 
@@ -22,3 +22,16 @@ Scenario: Verify signup in JPMC rewards page
 	And user fill username details with userName 
 	And user submit the information 
 	Then user should validate the error messaage 
+
+@Smoke1 @Regression
+Scenario: Home Page Visual Validation 
+	When JPMC application is launched
+	Then visually validate the logo is displaying in the top center of the page
+	Then visually validate the menu button is displaying in the top left corner of the page
+	
+@Regression
+Scenario: Page Load Performance Validation
+	When JPMC application is launched
+	Then Validate home page compents are loaded with in 3 sec
+	
+	

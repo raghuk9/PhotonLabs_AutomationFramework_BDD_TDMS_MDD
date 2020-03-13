@@ -15,4 +15,5 @@ public interface MobilePlatform extends JPMCPlatform{
     void changeAddress(String state) throws Exception;
 
     void getStateName(String stateKey) throws Exception;
+    
 }

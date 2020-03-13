@@ -1,58 +1,115 @@
 package platforms;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.json.simple.parser.ParseException;
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import com.cucumber.listener.Reporter;
 
 import cucumber.api.Scenario;
 import helpers.ConfigurationHelper;
-import io.appium.java_client.MobileDriver;
+import helpers.VideoRecorder;
 import io.appium.java_client.remote.MobileCapabilityType;
 import pageobjects.webportal.JpmcRewardsPage;
 
 public class WebPortal implements JPMCPlatform {
 	private static RemoteWebDriver driver;
-	private Properties locatorPool = null;
+//	private Properties locatorPool = null;
 	private static JpmcRewardsPage home;
-	public static WebElement previousElement = null;
-	private WebDriverWait wait;
+	public static String previousElementStyle = null;
+	private static StopWatch pageLoad;
+	private static Long pageLoadtime;
+	private static int elementWaitInSeconds = 30;
 
 	public static RemoteWebDriver getDriver() {
 		return driver;
 	}
 	
-	private boolean isDisplayed(WebElement element) throws FileNotFoundException, IOException, ParseException {
-		boolean isDisplayed = false;
-		if(!ConfigurationHelper.getPlatform().equals("android_Web")) {
-			element.isDisplayed();
-			isDisplayed = true;
-		}else if(element!=null) {
-			isDisplayed = true;
+	private static void javaWait(long millis) throws InterruptedException {
+		Thread.sleep(millis);
+	}
+	
+	private WebDriverWait webDriverWait() {
+		return new WebDriverWait(driver, elementWaitInSeconds);
+	}
+	
+	private void waitForElementVisibilityAndEnterText(WebElement element,String input) throws IOException, ParseException, InterruptedException {
+		waitElementClickable(element);
+		element.click();
+		element.clear();
+		element.sendKeys(input);;
+	}
+	
+	private String getText(WebElement element) throws Exception {
+		String result = "";
+		result = element.getText();
+		highLighterMethod(element, driver);
+		return result;
+	}
+	
+	private void waitForElementVisibilityAndClick(WebElement element) throws IOException, ParseException, InterruptedException {
+		waitElementClickable(element);
+		try {
+			element.click();			
+		}catch (TimeoutException e) {
+			
 		}
-		return isDisplayed;
+	}
+	
+	private void textAssertion(WebElement element,String expectedText) throws IOException, ParseException, InterruptedException {
+		scrollToElement(element, driver);
+		waitVisibilityOfElement(element);
+		highLighterMethod(element, driver);
+		Assert.assertEquals(expectedText, element.getText());
+	}
+
+	private boolean waitVisibilityOfElement(WebElement element) throws IOException, ParseException, InterruptedException {
+		boolean elementVisible = false;
+		WebElement val = webDriverWait().until(ExpectedConditions.visibilityOf(element));
+		if(val!=null) {
+			highLighterMethod(element, driver);
+			elementVisible = true;
+		}
+		return elementVisible;
+	}
+	
+	private void waitElementClickable(WebElement element) throws IOException, ParseException, InterruptedException {
+		webDriverWait().until(ExpectedConditions.elementToBeClickable(element));
+		highLighterMethod(element, driver);
+	}
+
+	private void validateLocation(WebElement element, Point location, Dimension size)
+			throws IOException, ParseException, InterruptedException {
+		waitVisibilityOfElement(element);
+		Assert.assertEquals(element.getLocation(), location);
+		Assert.assertEquals(element.getSize(), size);
 	}
 
 	public WebElement languageToggleButton() {
@@ -61,57 +118,60 @@ public class WebPortal implements JPMCPlatform {
 	}
 
 	public void switchLanguageForAndroidWeb() {
-		
+
 	}
-	
+
 	public void switchFrame(WebElement element) {
 		driver.switchTo().frame(element);
-		previousElement = null;
 	}
 
 	public void switchToDefaultFrame() {
 		driver.switchTo().defaultContent();
-		previousElement = null;
 	}
 
 	public void launch() throws Exception {
 		try {
-			String platformName = ConfigurationHelper.getPlatform();
+			HashMap<String, Object> chromePref =  new HashMap<String, Object>();
+			chromePref.put("intl.accept_languages", ConfigurationHelper.getLanguage());
+			String platformName = ConfigurationHelper.getPlatform().toLowerCase();
+			String browserName = ConfigurationHelper.getBrowserName().toLowerCase();
+			VideoRecorder.startRecording();
 			if (platformName.equalsIgnoreCase("webPortal_Dev")) {
-//				FileReader reader = new FileReader("src/test/resources/pageobjects/web_pageobjects.properties");
-//				locatorPool = new Properties();
-//				locatorPool.load(reader);
-				System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver_70v");
-				ChromeOptions options = new ChromeOptions();
-				options.addArguments("start-maximized");
-				options.addArguments("disable-infobars");
-				driver = new ChromeDriver(options);
-				ConfigurationHelper.init();
+				switch (browserName) {
+				case "chrome":
+					System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver_70v");
+					ChromeOptions options = new ChromeOptions();
+					options.addArguments("start-maximized");
+					options.addArguments("disable-infobars");
+					options.setExperimentalOption("prefs",chromePref);
+					driver = new ChromeDriver(options);
+					break;
+				case "firefox":
+					System.setProperty("webdriver.gecko.driver", "Drivers/geckodriver");
+					driver= new FirefoxDriver();
+				case "safari":
+					driver= new SafariDriver();
+				default:
+					break;
+				}
 				driver.manage().deleteAllCookies();
 				driver.manage().window().fullscreen();
+				ConfigurationHelper.init();
+				pageLoad = new StopWatch();
+				pageLoad.start();
 				driver.get(ConfigurationHelper.getBaseUri());
 				driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-				Thread.sleep(5000);	
-				String languageChangeOption = languageToggleButton().getText();
-				if (System.getProperty("lang") != null) {
-					if (System.getProperty("lang").equalsIgnoreCase("en-us")
-							&& languageChangeOption.equalsIgnoreCase("english")) {
-						languageToggleButton().click();
-					} else if (System.getProperty("lang").equalsIgnoreCase("es")
-							&& languageChangeOption.equalsIgnoreCase("Español")) {
-						languageToggleButton().click();
-					}
-				} else {
-					if (languageChangeOption.equalsIgnoreCase("english")) {
-						languageToggleButton().click();
-					}
-				}
+				pageLoad.stop();
+				pageLoadtime = pageLoad.getTime(TimeUnit.SECONDS);
+				pageLoad.reset();
+				System.out.println("Page Load Time : " + pageLoadtime);
 			} else if (platformName.equalsIgnoreCase("android_Web")) {
 				ConfigurationHelper.init();
 				DesiredCapabilities capabilities = new DesiredCapabilities();
-				capabilities.setCapability(MobileCapabilityType.UDID, ConfigurationHelper.getUdid());				
+				capabilities.setCapability(MobileCapabilityType.UDID, ConfigurationHelper.getUdid());
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, ConfigurationHelper.getPlatformName());
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, ConfigurationHelper.getPlatformVersion());
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION,
+						ConfigurationHelper.getPlatformVersion());
 				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, ConfigurationHelper.getDeviceName());
 				capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, ConfigurationHelper.getBrowserName());
 				capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 300);
@@ -122,56 +182,51 @@ public class WebPortal implements JPMCPlatform {
 				Runtime run = Runtime.getRuntime();
 				Process pr = run.exec(ADB + cmd);
 				pr.waitFor();
-
 				driver = new RemoteWebDriver(new URL(ConfigurationHelper.getDriverUrl()), capabilities);
-
-				wait = new WebDriverWait(driver, 30);
-
+				pageLoad = new StopWatch();
+				pageLoad.start();
 				driver.get(ConfigurationHelper.getBaseUri());
-
-				driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-//				String currentLanguage = driver.getPageSource();
-//				if (System.getProperty("lang") != null) {
-//					if (!currentLanguage.contains(System.getProperty("lang"))) {
-//						home.getSignUpLink().click();
-//						Thread.sleep(3000);
-//						driver.findElement(By.id("languageChange")).click();
-//						Thread.sleep(3000);
-//						driver.navigate().back();
-//					} 
-//				} else {
-//					if (currentLanguage.equalsIgnoreCase("es")) {
-//						home.getSignUpLink().click();
-//						Thread.sleep(3000);
-//						driver.findElement(By.id("languageChange")).click();
-//						Thread.sleep(3000);
-//						driver.navigate().back();
-//					}
-//				}
+				driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+				pageLoad.stop();
+				pageLoadtime = pageLoad.getTime(TimeUnit.SECONDS);
+				pageLoad.reset();
+				System.out.println("Page Load Time : " + pageLoad.getTime(TimeUnit.SECONDS));
 			}
+			Thread.sleep(5000);
 			home = new JpmcRewardsPage(driver);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Unknown error while user tries to launch the jpmc application");
 		}
 	}
 
-	public void highLighterMethod(WebElement element, RemoteWebDriver driver) throws IOException, ParseException {
+	public void highLighterMethod(WebElement element, RemoteWebDriver driver) throws IOException, ParseException, InterruptedException {
 		if (ConfigurationHelper.getPlatform().contains("webPortal")) {
-			if (previousElement != null)
-				revertHighLighterMethod(previousElement, driver);
-			JavascriptExecutor js = driver;
-			js.executeScript("arguments[0].setAttribute('style','background: yellow; border: 2px solid red;');",
-					element);
-			previousElement = element;
+			previousElementStyle = element.getAttribute("style");	
+			if(previousElementStyle.equals("")) {
+				JavascriptExecutor js = driver;
+				js.executeScript("arguments[0].setAttribute('style','border: 2px solid red;');",
+						element);				
+			}else {
+				JavascriptExecutor js = driver;
+				js.executeScript("arguments[0].setAttribute('style','border: 2px solid red;"+previousElementStyle+"');",
+						element);
+			}
+			javaWait(3000);
+			revertHighLighterMethod(element, driver);
 		}
 	}
 
 	public void revertHighLighterMethod(WebElement element, RemoteWebDriver driver) throws IOException, ParseException {
 		if (ConfigurationHelper.getPlatform().contains("webPortal")) {
-			JavascriptExecutor js = driver;
-			js.executeScript("arguments[0].setAttribute('style','background: transparent; border: none');", element);
+			if(previousElementStyle.equals("")) {
+				JavascriptExecutor js = driver;
+				js.executeScript("arguments[0].setAttribute('style','border: none');", element);	
+			}else {
+				JavascriptExecutor js = driver;
+				js.executeScript("arguments[0].setAttribute('style','"+previousElementStyle+"');", element);
+			}
+			
 		}
 	}
 
@@ -187,23 +242,6 @@ public class WebPortal implements JPMCPlatform {
 		return null;
 	}
 
-	@Override
-	public void navigateToLogin() throws Exception {
-		try {
-			driver.findElement(By.linkText(locatorPool.getProperty("jpmc.home.homescreen.menu.login"))).click();
-		} catch (Exception e) {
-			throw new Exception("Unknown error while user tries to navigate to login");
-		}
-	}
-
-	@Override
-	public void login() throws Exception {
-		try {
-			driver.findElement(By.linkText(locatorPool.getProperty("jpmc.home.homescreen.menu.submitButton"))).click();
-		} catch (Exception e) {
-			throw new Exception("Unknown error while user tries to login the jpmc application");
-		}
-	}
 
 	@Override
 	public void validateLogIn() throws Exception {
@@ -218,39 +256,11 @@ public class WebPortal implements JPMCPlatform {
 	}
 
 	@Override
-	public void enterEmailAndPassword(String email, String password) throws Exception {
-		try {
-			driver.findElement(By.linkText(locatorPool.getProperty("jpmc.home.homescreen.menu.userName")))
-					.sendKeys(email);
-			driver.findElement(By.linkText(locatorPool.getProperty("jpmc.home.homescreen.menu.password")))
-					.sendKeys(password);
-		} catch (Exception e) {
-			throw new Exception("Unknown error while user enters email and password in login");
-		}
-
-	}
-
-	@Override
-	public void validateUnsuccessfulLogin(String error) throws Exception {
-		try {
-			String errormessage = driver
-					.findElement(By.linkText(locatorPool.getProperty("jpmc.home.homescreen.menu.submitButton")))
-					.getText();
-			if (!errormessage.equalsIgnoreCase(error)) {
-				throw new Exception("warning" + error + "message is not displayed");
-			}
-		} catch (Exception e) {
-			throw new Exception("Unknown error while user tries to validate unseccessful login");
-		}
-
-	}
-
-	@Override
 	public void validateReward() throws Exception {
 		Thread.sleep(10000);
 		System.out.println("Element is visible ----" + home.getRewardsElement());
 		highLighterMethod(home.getRewardsElement(), driver);
-		Assert.assertTrue(home.getRewardsElement().isDisplayed(), "Rewards page not available");
+		Assert.assertTrue("Rewards page not available",home.getRewardsElement().isDisplayed());
 	}
 
 	@Override
@@ -258,9 +268,9 @@ public class WebPortal implements JPMCPlatform {
 		Thread.sleep(2000);
 		if (ConfigurationHelper.getPlatform().equals("webPortal_Dev")) {
 			highLighterMethod(home.getOpenAnAccountLink(), driver);
-			Assert.assertTrue(home.getOpenAnAccountLink().isDisplayed(), "Open account link is not available");
+			Assert.assertTrue("Open account link is not available",home.getOpenAnAccountLink().isDisplayed());
 		} else {
-			Assert.assertFalse(home.getOpenAnAccountLink().isDisplayed(), "Open account link is available");
+			Assert.assertFalse("Open account link is available",home.getOpenAnAccountLink().isDisplayed());
 		}
 
 	}
@@ -269,20 +279,14 @@ public class WebPortal implements JPMCPlatform {
 	public void validateBrowseCards() throws Exception {
 		Thread.sleep(3000);
 		highLighterMethod(home.getBrowseCardsButton(), driver);
-		Assert.assertTrue(home.getBrowseCardsButton().isDisplayed(), "Open account link is not available");
+		Assert.assertTrue("Open account link is not available",home.getBrowseCardsButton().isDisplayed());
 	}
 
 	@Override
 	public void validateManageMyAccount() throws Exception {
 		scrollToElement(home.getManageMyAccount(), driver);
-//		Actions act = new Actions(driver);
-//		act.moveToElement(home.getManageMyAccount()).build().perform();
-//		JavascriptExecutor js = (JavascriptExecutor) driver;
-//		js.executeScript("window.scrollBy(0,100)");
-//		Thread.sleep(3000);
-//		js.executeScript("arguments[0].scrollIntoView();", home.getManageMyAccount());
 		highLighterMethod(home.getManageMyAccount(), driver);
-		Assert.assertTrue(home.getManageMyAccount().isDisplayed(), "Manage my account footer link is not available");
+		Assert.assertTrue("Manage my account footer link is not available",home.getManageMyAccount().isDisplayed());
 	}
 
 	@Override
@@ -290,7 +294,7 @@ public class WebPortal implements JPMCPlatform {
 		Thread.sleep(2000);
 		scrollToElement(home.getTravelCards(), driver);
 		highLighterMethod(home.getTravelCards(), driver);
-		Assert.assertTrue(home.getTravelCards().isDisplayed(), "Travel cards footer link is not available");
+		Assert.assertTrue("Travel cards footer link is not available",home.getTravelCards().isDisplayed());
 	}
 
 	@Override
@@ -298,7 +302,7 @@ public class WebPortal implements JPMCPlatform {
 		Thread.sleep(2000);
 		scrollToElement(home.getRewardsCard(), driver);
 		highLighterMethod(home.getRewardsCard(), driver);
-		Assert.assertTrue(home.getRewardsCard().isDisplayed(), "Reward cards footer link is not available");
+		Assert.assertTrue("Reward cards footer link is not available",home.getRewardsCard().isDisplayed());
 	}
 
 	@Override
@@ -306,7 +310,7 @@ public class WebPortal implements JPMCPlatform {
 		Thread.sleep(2000);
 		scrollToElement(home.getCashBackCards(), driver);
 		highLighterMethod(home.getCashBackCards(), driver);
-		Assert.assertTrue(home.getCashBackCards().isDisplayed(), "Cash back cards footer link is not available");
+		Assert.assertTrue("Cash back cards footer link is not available",home.getCashBackCards().isDisplayed());
 	}
 
 	@Override
@@ -314,14 +318,14 @@ public class WebPortal implements JPMCPlatform {
 		Thread.sleep(2000);
 		scrollToElement(home.getPartnerCards(), driver);
 		highLighterMethod(home.getPartnerCards(), driver);
-		Assert.assertTrue(home.getPartnerCards().isDisplayed(), "Partner cards footer link is not available");
+		Assert.assertTrue("Partner cards footer link is not available",home.getPartnerCards().isDisplayed());
 	}
 
 	@Override
 	public void validateSmallBusinessCards() throws Exception {
 		Thread.sleep(2000);
 		highLighterMethod(home.getSmallBusinessCards(), driver);
-		Assert.assertTrue(home.getSmallBusinessCards().isDisplayed(), "Partner cards footer link is not available");
+		Assert.assertTrue("Partner cards footer link is not available",home.getSmallBusinessCards().isDisplayed());
 		// Assert.fail();
 	}
 
@@ -336,69 +340,56 @@ public class WebPortal implements JPMCPlatform {
 
 	@Override
 	public void signUp() throws Exception {
-		Thread.sleep(10000);		
+		Thread.sleep(5000);
 		try {
 			WebElement frameElement;
-			if(ConfigurationHelper.getPlatform().equalsIgnoreCase("android_Web")) {
+			if (ConfigurationHelper.getPlatform().equalsIgnoreCase("android_Web")) {
 				frameElement = driver.findElement(By.id("routablecpologonbox"));
-			}else {
+			} else {
 				frameElement = driver.findElement(By.id("logonbox"));
 			}
 			switchFrame(frameElement);
-			highLighterMethod(home.getSignUpLink(), driver);
-			home.getSignUpLink().click();
+			waitForElementVisibilityAndClick(home.getSignUpLink());
 			switchToDefaultFrame();
-		}catch (ElementNotInteractableException|NoSuchElementException e) {
+		} catch (TimeoutException | ElementNotInteractableException | NoSuchElementException e) {
 			switchToDefaultFrame();
-			highLighterMethod(home.getSignUpHome(), driver);
-			home.getSignUpHome().click();
+			waitForElementVisibilityAndClick(home.getSignUpHome());
 		}
+		Thread.sleep(10000);
 	}
 
 	@Override
 	public void fillAccountNumber(String accountNumber) throws Exception {
 		Thread.sleep(10000);
-		// new WebDriverWait(driver,
-		// 30).ignoring(StaleElementReferenceException.class).until(ExpectedConditions.elementToBeClickable(home.getAccountFieldHighlighted()));
-		// driver.findElement(By.id("checkoutLink")).click();
-		// highLighterMethod(home.getAccountFieldHighlighted());
-		home.getAccountField().click();
-		home.getAccountField().sendKeys(accountNumber);
+		waitForElementVisibilityAndEnterText(home.getAccountField(), accountNumber);
 	}
 
 	@Override
 	public void fillSsnNumber(String ssnNumber) throws Exception {
 		System.out.println("ssn number" + ssnNumber);
-		Thread.sleep(4000);
-		if(ConfigurationHelper.getPlatform().contains("webPortal")) {
+		if (ConfigurationHelper.getPlatform().contains("webPortal")) {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("arguments[0].scrollIntoView();", home.getSsnNumberField());
 		}
-		home.getSsnNumberField().click();
-		Thread.sleep(5000);
-		home.getSsnNumberField().sendKeys(ssnNumber);
+		waitForElementVisibilityAndEnterText(home.getSsnNumberField(), ssnNumber);
 	}
 
 	@Override
 	public void fillUserName(String userName) throws Exception {
-		home.getUserNameField().click();
-		Thread.sleep(5000);
-		home.getUserNameField().sendKeys(userName);
-		if(ConfigurationHelper.getPlatform().equalsIgnoreCase("android_web")) {
+		waitForElementVisibilityAndEnterText(home.getUserNameField(), userName);
+		if (ConfigurationHelper.getPlatform().equalsIgnoreCase("android_web")) {
 			home.getSsnNumberField().click();
 		}
 	}
 
 	@Override
 	public void submitInformation() throws Exception {
-		Thread.sleep(2000);
-		home.submitSignUpInformation().click();
+		waitForElementVisibilityAndClick(home.submitSignUpInformation());
 	}
 
 	@Override
 	public void validateErrorMessageWhileSignUp(String errorMessage) throws Exception {
-		Thread.sleep(5000);
-		Assert.assertEquals(home.getSignUpError().getText(), errorMessage);
+		textAssertion(home.getSignUpError(), errorMessage);
 	}
 
 	@Override
@@ -426,64 +417,58 @@ public class WebPortal implements JPMCPlatform {
 
 	@Override
 	public void navigateToSigninPage() throws Exception {
-		if(ConfigurationHelper.getPlatform().equals("webPortal_Dev")) {
-			highLighterMethod(home.getMenuButton(), driver);
-			home.getMenuButton().click();
+		if (ConfigurationHelper.getPlatform().contains("webPortal")) {
+			waitForElementVisibilityAndClick(home.getMenuButton());		
 			Thread.sleep(3000);
-			highLighterMethod(home.getMenuSignInButton(), driver);
-			home.getMenuSignInButton().click();
+			waitForElementVisibilityAndClick(home.getMenuSignInButton());
+			pageLoad = new StopWatch();
+			pageLoad.start();
 			Thread.sleep(5000);
 		}
+
 	}
 
 	@Override
 	public void validateLoginUserNameField() throws Exception {
-		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+//		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 		WebElement frameElement;
-		if(ConfigurationHelper.getPlatform().equals("android_Web")) {
+		if (ConfigurationHelper.getPlatform().equals("android_Web")) {
 			frameElement = driver.findElement(By.id("routablecpologonbox"));
-		}else {
+		} else {
 			frameElement = driver.findElement(By.id("logonbox"));
-		}
+		}		
 		switchFrame(frameElement);
-		highLighterMethod(home.getLoginUserNameField(), driver);
-		Assert.assertTrue(isDisplayed(home.getLoginUserNameField()));
+		Assert.assertTrue(waitVisibilityOfElement(home.getLoginUserNameField()));
 	}
 
 	@Override
 	public void validateLoginpasswordField() throws Exception {
-		highLighterMethod(home.getLoginPasswordField(), driver);
-		Assert.assertTrue(isDisplayed(home.getLoginPasswordField()));
+		Assert.assertTrue(waitVisibilityOfElement(home.getLoginPasswordField()));
 	}
 
 	@Override
 	public void validateLoginrememberMe(String rememberMe) throws Exception {
-		highLighterMethod(home.getLoginRememberMeText(), driver);
-		Assert.assertEquals(home.getLoginRememberMeText().getText(), rememberMe);
+		textAssertion(home.getLoginRememberMeText(), rememberMe);
 	}
 
 	@Override
 	public void validateLoginuseTokenLink(String useToken) throws Exception {
-		highLighterMethod(home.getLoginUseTokenText(), driver);
-		Assert.assertEquals(home.getLoginUseTokenText().getText(), useToken);
+		textAssertion(home.getLoginUseTokenText(), useToken);
 	}
 
 	@Override
 	public void validateLoginsignInButton(String signInButton) throws Exception {
-		highLighterMethod(home.getLoginSigninButton(), driver);
-		Assert.assertEquals(home.getLoginSigninButton().getText(), signInButton);
+		textAssertion(home.getLoginSigninButton(), signInButton);
 	}
 
 	@Override
 	public void validateLoginforgotLink(String forgotLink) throws Exception {
-		highLighterMethod(home.getLoginForgotPasswordLink(), driver);
-		Assert.assertEquals(home.getLoginForgotPasswordLink().getText(), forgotLink);
+		textAssertion(home.getLoginForgotPasswordLink(), forgotLink);
 	}
 
 	@Override
 	public void validateLoginsignUpLink(String signUp) throws Exception {
-		highLighterMethod(home.getSignUpLink(), driver);
-		Assert.assertEquals(home.getSignUpLink().getText(), signUp);
+		textAssertion(home.getSignUpLink(), signUp);
 		switchToDefaultFrame();
 	}
 
@@ -491,6 +476,94 @@ public class WebPortal implements JPMCPlatform {
 	public void validateSignuperrorMessage(String errorMessaage) throws Exception {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView();", home.getSsnNumberField());
+
+	}
+
+	@Override
+	public void goToHome() throws Exception {
+		driver.get(ConfigurationHelper.getBaseUri());
+	}
+
+	@Override
+	public void visualValidtionOfLogo() throws Exception {
+		validateLocation(home.getHeaderLogo(), home.logoLocation(), home.logoSize());
+	}
+
+	@Override
+	public void visualValiationOfMenu() throws Exception {
+		validateLocation(home.getMenuButton(), home.menuLocation(), home.menuSize());
+	}
+
+	@Override
+	public void homePageLodeTest(int time) throws Exception {
+		if (pageLoadtime <= time) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue("Actual Time Taken : " + pageLoadtime + "\nExpected Time : " + time,false);
+		}
+	}
+
+	@Override
+	public void signInPageLodeTest(int time) throws Exception {
+		pageLoad.stop();
+		pageLoadtime = pageLoad.getTime(TimeUnit.SECONDS);
+		if (pageLoadtime <= time) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue("Actual Time Taken : " + pageLoadtime + "\nExpected Time : " + time,false);
+		}
+	}
+
+	@Override
+	public void clickOnFindaCreditCardlink() throws Exception {
+		waitForElementVisibilityAndClick(home.getFindaCardLink());
+	}
+
+	@Override
+	public void validatePageNavigation(String pageTitle) {
+		Assert.assertEquals(pageTitle, driver.getTitle());
+	}
+
+	@Override
+	public void clickOnTryOurCardFinderLink() throws Exception {
+		waitForElementVisibilityAndClick(home.getTryOurCardFinderLink());
+	}
+
+	@Override
+	public void clickOnPersonalIcon() throws Exception {	
+		waitForElementVisibilityAndClick(home.getPersonalIcon());
+	}
+
+	@Override
+	public void clickOnRewardsIcon() throws Exception {
+		waitForElementVisibilityAndClick(home.getRewardsIcon());
+	}
+
+	@Override
+	public void clickOnCashBackIcon() throws Exception {
+		waitForElementVisibilityAndClick(home.getCashBackIcon());		
+	}
+
+	@Override
+	public void clickOnBalanceTransferIcon() throws Exception {
+		Thread.sleep(3000);
+		waitForElementVisibilityAndClick(home.getBalanceTransferIcon());		
+	}
+
+	@Override
+	public void validateCardShowsAsPerTheCriteria(List<String> criteria) throws Exception {
+		List<WebElement> elements = home.getCardSection();
+		for(int i=1;i<=elements.size();i++) {
+			List<WebElement> webelement = home.getCardCriteria(i);
+			for (int j = 0; j < criteria.size(); j++) {
+				Assert.assertEquals(criteria.get(j), getText(webelement.get(j)));
+			}
+		}
 		
+	}
+
+	@Override
+	public void clickOnBusinessIcon() throws Exception {
+		waitForElementVisibilityAndClick(home.getBusinessIcon());
 	}
 }

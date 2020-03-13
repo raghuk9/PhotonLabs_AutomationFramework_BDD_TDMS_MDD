@@ -1,11 +1,14 @@
 {
  "webPortal_Dev": {
   "featureFile": "src/test/resources/testData/WebFeatureData.xlsx",
-  "baseUri": "https://www.chase.com"
+  "baseUri_es": "https://www.chase.com/espanol",
+  "baseUri_en-us": "https://www.chase.com",
+  "browserName":"chrome"
  },
  "webPortal_Stg":{
   "featureFile": "src/test/resources/testData/WebFeatureData.xlsx",
-  "baseUri": "https://www.chase.com/personal/credit-cards/ultimate-rewards"
+  "baseUri": "https://www.chase.com/personal/credit-cards/ultimate-rewards",
+  "browserName":"Chrome"
 },
  "android":{
   "platformName": "android",
@@ -23,6 +26,7 @@
   "browserName": "Chrome",
   "driverUrl": "http://127.0.0.1:4723/wd/hub",
   "featureFile": "src/test/resources/testData/WebFeatureData.xlsx",
-  "baseUri": "https://www.chase.com/personal/credit-cards/ultimate-rewards"
+  "baseUri_es": "https://www.chase.com/espanol",
+  "baseUri_en-us": "https://www.chase.com"
 }
 }

@@ -1,26 +1,21 @@
 package platforms;
 
 import java.io.File;
+import java.util.List;
 
 public interface JPMCPlatform {
 
     void launch() throws Exception;
+    
+    void goToHome() throws Exception;
 
     void logOut() throws Exception;
 
     File takeScreenshot() throws Exception;
 
-    void navigateToLogin() throws Exception;
-
-    void login() throws Exception;
-
     void validateLogIn() throws Exception;
 
     void validateLogOut() throws Exception;
-    
-    void enterEmailAndPassword(String email, String password) throws Exception;
-    
-    void validateUnsuccessfulLogin(String error) throws Exception;
 
     void validateReward() throws Exception;
 
@@ -73,5 +68,31 @@ public interface JPMCPlatform {
     void validateLoginsignUpLink(String signUp) throws Exception;
     
     void validateSignuperrorMessage(String errorMessaage) throws Exception;
+    
+    void visualValidtionOfLogo() throws Exception;
+    
+    void visualValiationOfMenu() throws Exception;
+    
+    void homePageLodeTest(int time) throws Exception;
+    
+    void signInPageLodeTest(int time) throws Exception;
+    
+    void clickOnFindaCreditCardlink() throws Exception;
+    
+    void validatePageNavigation(String pageTitle);
+    
+    void clickOnTryOurCardFinderLink() throws Exception;
+    
+    void clickOnPersonalIcon() throws Exception;
+    
+    void clickOnRewardsIcon() throws Exception;
+    
+    void clickOnCashBackIcon() throws Exception;
+    
+    void clickOnBalanceTransferIcon() throws Exception;
+    
+    void validateCardShowsAsPerTheCriteria(List<String> criteria) throws Exception;
+    
+    void clickOnBusinessIcon() throws Exception;
 
 }

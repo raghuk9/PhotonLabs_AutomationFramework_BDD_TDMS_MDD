@@ -1,12 +1,10 @@
 package helpers;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 import org.json.simple.JSONObject;
-
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -16,6 +14,7 @@ public class ConfigurationHelper {
 
 	private static JSONObject platformProperties = null;
 	private static String platformStr = null;
+	private static String driverUrl = null;
 
 	public static void init() throws FileNotFoundException, IOException, ParseException {
 		platformStr=getPlatform();
@@ -35,6 +34,10 @@ public class ConfigurationHelper {
 		return platformStr;
 	}
 	
+	public static void setDriverUrl(String url) {
+		driverUrl = url;
+	}
+	
 	private static JSONObject getPlatformProperties() throws FileNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(new FileReader("src/test/configuration/Config.json"));
@@ -48,8 +51,16 @@ public class ConfigurationHelper {
 		return (String) platformProperties.get("featureFile");
 	}
 
+	public static String getLanguage() {
+		String lang = System.getProperty("lang");
+		if(lang==null) {
+			lang = "en-us";
+		}
+		return lang;
+	}
+	
 	public static String getBaseUri() throws FileNotFoundException, IOException, ParseException {
-		return (String) platformProperties.get("baseUri");
+		return (String) platformProperties.get("baseUri_"+getLanguage());
 	}
 	
 	public static String getPlatformName() throws FileNotFoundException, IOException, ParseException {
@@ -65,7 +76,8 @@ public class ConfigurationHelper {
 	}
 	
 	public static String getDriverUrl() throws FileNotFoundException, IOException, ParseException {
-		return (String) platformProperties.get("driverUrl");
+//		return (String) platformProperties.get("driverUrl");
+		return driverUrl;
 	}
 	
 	public static String getAppPackage() throws FileNotFoundException, IOException, ParseException {
@@ -77,13 +89,17 @@ public class ConfigurationHelper {
 	}
 	
 	public static String getBrowserName() throws FileNotFoundException, IOException, ParseException {
-		return (String) platformProperties.get("browserName");
+		String browserName = System.getProperty("browserName");
+		if(browserName==null) {
+			browserName = (String) platformProperties.get("browserName"); 
+		}
+		return browserName; 
 	}
 	
 	public static String getUdid() throws FileNotFoundException, IOException, ParseException {
 		return (String) platformProperties.get("udid");
 	}
-
+	
 }
 
 // private static RunConfig runConfig;

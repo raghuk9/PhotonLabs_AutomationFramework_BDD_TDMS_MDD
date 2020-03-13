@@ -2,11 +2,12 @@ package pageobjects.webportal;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -15,12 +16,52 @@ import helpers.ConfigurationHelper;
 public class JpmcRewardsPage {
 
     private RemoteWebDriver driver;
-
+        
     public JpmcRewardsPage(RemoteWebDriver driver){
         this.driver=driver;
     }
 
-    public WebElement getRewardsElement(){
+    private Point getLocation(Point webLocation,Point androidLocation) throws FileNotFoundException, IOException, ParseException {
+    	Point point = null;
+    	if(ConfigurationHelper.getPlatform().equalsIgnoreCase("android_Web")) {
+    		point = androidLocation;
+    	}else {
+    		point = webLocation;
+    	}
+    	return point;
+    }
+    
+    public Dimension getSize(Dimension webSize,Dimension androidSize) throws FileNotFoundException, IOException, ParseException {
+    	Dimension dimension = null;
+    	if(ConfigurationHelper.getPlatform().equalsIgnoreCase("android_Web")) {
+    		dimension = androidSize;
+    	}else {
+    		dimension = webSize;
+    	}
+    	return dimension;
+    }
+    
+    public Point logoLocation() throws FileNotFoundException, IOException, ParseException {
+    	Point point = getLocation(new Point(630, 0), new Point(128, 10));
+    	return point;
+    }
+    
+    public Dimension logoSize() throws FileNotFoundException, IOException, ParseException {
+    	Dimension dimension = getSize(new Dimension(179, 70), new Dimension(136, 56));
+    	return dimension;
+    }
+    
+    public Point menuLocation() throws FileNotFoundException, IOException, ParseException {
+    	Point point = getLocation(new Point(128, 0), new Point(8, 0));
+    	return point;
+    }
+    
+    public Dimension menuSize() throws FileNotFoundException, IOException, ParseException {
+    	Dimension dimension = getSize(new Dimension(22, 70), new Dimension(23, 56));
+    	return dimension;
+    }
+    
+    public WebElement getRewardsElement(){  
         return driver.findElement(By.className("single-logo-icon"));
     }
 
@@ -96,26 +137,12 @@ public class JpmcRewardsPage {
         return driver.findElement(By.id("logonbox"));
     }
     
-    public WebElement getLoginUserNameField() throws FileNotFoundException, IOException, ParseException{
-    	WebElement element;
-//    	if(ConfigurationHelper.getPlatform().equalsIgnoreCase("android_web")) {
-//    		element = driver.findElement(By.id("userId-text-input-field"));
-//    	}else {
-//    		element = driver.findElement(By.id("userId-input-field"));
-//    	}
-    	element = driver.findElement(By.id("userId-text-input-field"));
-        return element;
+    public WebElement getLoginUserNameField(){
+        return driver.findElement(By.id("userId-text-input-field"));
     }
     
-    public WebElement getLoginPasswordField() throws FileNotFoundException, IOException, ParseException{
-    	WebElement element;
-//    	if(ConfigurationHelper.getPlatform().equalsIgnoreCase("android_web")) {
-//    		element = driver.findElement(By.id("password-text-input-field"));
-//    	}else {
-//    		element = driver.findElement(By.id("password-input-field"));
-//    	}
-    	element = driver.findElement(By.id("password-text-input-field"));
-        return element;
+    public WebElement getLoginPasswordField(){
+        return driver.findElement(By.id("password-text-input-field"));
     }
     
     public WebElement getLoginRememberMeText(){
@@ -142,4 +169,45 @@ public class JpmcRewardsPage {
         return driver.findElement(By.id("forgotPassword"));
     }
     
+    public WebElement getHeaderLogo() {
+    	return driver.findElement(By.xpath("//*[@class='header__section--center--link chaseanalytics-track-link']"));
+    }
+    
+    /////////////////////////////
+    
+    public WebElement getFindaCardLink() {
+    	return driver.findElement(By.xpath("//div[@id='slide3']/div/a"));
+    }
+    
+    public WebElement getTryOurCardFinderLink() {
+    	return driver.findElement(By.xpath("//a[text()='Try our Card Finder']"));
+    }
+    
+    public WebElement getPersonalIcon() {
+    	return driver.findElement(By.xpath("//span[text()='Personal']/parent::a"));
+    }
+    
+    public WebElement getRewardsIcon() {
+    	return driver.findElement(By.xpath("//span[text()='Rewards']/parent::a[@style='display: inline-block;']"));
+    }
+    
+    public WebElement getCashBackIcon() {
+    	return driver.findElement(By.xpath("//span[text()='Cash Back']/parent::a[@style='display: inline-block;']"));
+    }
+    
+    public WebElement getBalanceTransferIcon() {
+    	return driver.findElement(By.xpath("//span[text()='Balance Transfer']/parent::a[@style='display: inline-block;']"));
+    }
+    
+    public List<WebElement> getCardSection(){
+    	return driver.findElements(By.xpath("//div[@id='initialcardsresults']/div/div[2]//div[contains(@id,'slick-slide')]"));
+    }
+    
+    public List<WebElement> getCardCriteria(int index){
+    	return driver.findElements(By.xpath("(//div[@id='initialcardsresults']/div/div[2]//div[contains(@id,'slick-slide')])["+index+"]//li"));
+    }
+    
+    public WebElement getBusinessIcon() {
+    	return driver.findElement(By.xpath("//span[text()='Business']/parent::a"));
+    }
 }

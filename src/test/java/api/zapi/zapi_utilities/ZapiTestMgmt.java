@@ -275,7 +275,7 @@ public class ZapiTestMgmt extends APICall {
 		return executionJSON;
     }
     
-    public String createNewBug(String failureScreenshot, String priorityId, String summary, String description,
+    public String createNewBug(String failureScreenshot,String videoPath, String priorityId, String summary, String description,
             String assignee) throws Exception {
         String bugId = "";
         StringEntity payload = createBugPayload(priorityId, summary, description, assignee);
@@ -284,12 +284,30 @@ public class ZapiTestMgmt extends APICall {
         bugId = response.getString("key");
         System.out.println("New Bug Created Key : " + bugId);
         attachScreenShotToIssue(failureScreenshot, bugId);
+        attachVideoToIssue(videoPath, bugId);
         return bugId;
     }
 
     public void attachScreenShotToIssue(String attachmentPath, String testCaseId) {
         String curDir = System.getProperty("user.dir");
         File fileUpload = new File(curDir + File.separator + attachmentPath);
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost postRequest = new HttpPost(jiraBaseURL + jiraURI + "issue/" + testCaseId + "/attachments");
+        postRequest.setHeader("Authorization", jiraAuthorizationToken);
+        postRequest.setHeader("X-Atlassian-Token", "nocheck");
+        MultipartEntityBuilder entity = MultipartEntityBuilder.create();
+        entity.addPart("file", new FileBody(fileUpload));
+        postRequest.setEntity(entity.build());
+        HttpResponse response = null;
+        try {
+            response = httpClient.execute(postRequest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void attachVideoToIssue(String attachmentPath, String testCaseId) {
+        File fileUpload = new File(attachmentPath);
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost postRequest = new HttpPost(jiraBaseURL + jiraURI + "issue/" + testCaseId + "/attachments");
         postRequest.setHeader("Authorization", jiraAuthorizationToken);

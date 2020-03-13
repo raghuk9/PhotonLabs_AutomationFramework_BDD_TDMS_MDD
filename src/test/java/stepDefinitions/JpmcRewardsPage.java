@@ -3,30 +3,18 @@ package stepDefinitions;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
 import org.json.simple.parser.ParseException;
 
-import cucumber.api.java.en.Given;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.testng.Assert;
 
 public class JpmcRewardsPage extends AbstractStepDefinition {
 
     public JpmcRewardsPage() throws FileNotFoundException, IOException, ParseException {
         super();
     }
-
-    @When("user enters email (.*) and password (.*)")
-    public void enterEmailAndPassword(String email, String password) throws Exception {
-        platform.enterEmailAndPassword(email, password);
-    }
-
-    @When("user validates the error message (.*)")
-    public void validateUnsuccessfulLogin(String errormessage) throws Exception {
-        platform.validateUnsuccessfulLogin(errormessage);
-    }
-
+    
     @Then("^user validates the ultimate rewards page$")
     public void userValidatesTheUltimateRewardsPage() throws Throwable {
         platform.validateReward();
@@ -120,6 +108,7 @@ public class JpmcRewardsPage extends AbstractStepDefinition {
     @Then("^validate passwordField is displaying$")
     public void validate_passwordField_is_displaying() throws Throwable {
     	platform.validateLoginpasswordField();
+    	System.out.println("password field validated");
     }
 
     @Then("^validate rememberMe check box and text$")
@@ -150,5 +139,25 @@ public class JpmcRewardsPage extends AbstractStepDefinition {
     public void validate_signUp_link_in_page() throws Throwable {
     	String data =getDataValue("signUp");
     	platform.validateLoginsignUpLink(data);
+    }
+    
+    @Then("^visually validate the logo is displaying in the top center of the page$")
+    public void visually_validate_the_logo_is_displaying_in_the_top_center_of_the_page() throws Throwable {
+    	platform.visualValidtionOfLogo();
+    }
+    
+    @Then("^visually validate the menu button is displaying in the top left corner of the page$")
+    public void visually_validate_the_menu_button_is_displaying_in_the_top_left_corner_of_the_page() throws Throwable {
+    	platform.visualValiationOfMenu();
+    }
+    
+    @Then("^Validate home page compents are loaded with in (.*) sec$")
+    public void Validate_home_page_compents_are_loaded_with_in_sec(int time) throws Throwable {
+    	platform.homePageLodeTest(time);
+    }
+    
+    @Then("^Validate Signin page compents are loaded with in (.*) sec$")
+    public void Validate_Signin_page_compents_are_loaded_with_in_sec(int time) throws Throwable {
+    	platform.signInPageLodeTest(time);
     }
 }

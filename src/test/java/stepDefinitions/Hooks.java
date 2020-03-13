@@ -4,9 +4,9 @@ import api.zapi.zapi_utilities.ZapiTestMgmt;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import cucumber.api.java.no.Gitt;
 import helpers.CommunicationHelper;
 import helpers.DataHelper;
+import helpers.VideoRecorder;
 
 public class Hooks {
     private long start;
@@ -29,6 +29,7 @@ public class Hooks {
             long timeTaken = end - start;
             System.out.println("Time Taken for scenario execution : "+timeTaken/1000+" seconds.");
             jiraUpdate = ZapiTestMgmt.getInstance().jiraUpdate;
+            jiraAssignee = DataHelper.getCurrentData().get("jiraAssignee");
             if(jiraUpdate) {
             	jiraAssignee = DataHelper.getCurrentData().get("jiraAssignee"); 
             	ZapiTestMgmt.getInstance().updateExecutionStatus(scenario.getStatus(), testCaseId,
@@ -36,6 +37,7 @@ public class Hooks {
             }
             if (scenario.isFailed()) {
                 String attachmentPath = CommunicationHelper.takeScreenShot(scenario);
+                CommunicationHelper.closeApp(scenario);
                 String projectKey = ZapiTestMgmt.getInstance().projectKey;
                 if(ZapiTestMgmt.getInstance().createBug && jiraUpdate) {
                 	System.out.println("Starting Bug Creation in Jira");
@@ -50,7 +52,7 @@ public class Hooks {
                     }
                     if (creaNewBug) {
                     	System.out.println("Going to Create New bug");
-                        bugId = ZapiTestMgmt.getInstance().createNewBug(attachmentPath, "2",
+                        bugId = ZapiTestMgmt.getInstance().createNewBug(attachmentPath,VideoRecorder.getVideoPath(), "2",
                                 testCaseId + " - " + scenario.getName(),
                                 testCaseId + " - " + scenario.getName() + " got failed",
                                 jiraAssignee);
@@ -59,18 +61,19 @@ public class Hooks {
                         System.out.println("Bug Created Successfully and updated into spread sheet");
                     }
                     CommunicationHelper.sendEmail(DataHelper.getCurrentData().get("failureEmail"), scenario.getName(),
-                            testCaseId, attachmentPath, bugId, previousBug,jiraAssignee);
+                            testCaseId, attachmentPath,VideoRecorder.getVideoPath(), bugId, previousBug,jiraAssignee);
                 }else {
                 	CommunicationHelper.sendEmail(DataHelper.getCurrentData().get("failureEmail"), scenario.getName(),
-                            testCaseId, attachmentPath,jiraAssignee);
+                            testCaseId, attachmentPath,VideoRecorder.getVideoPath(),jiraAssignee);
                 }
                 end = System.currentTimeMillis();
                 timeTaken = end - start;
                 System.out.println("Time Taken for overall execution of a scenario including Jira update : "+timeTaken/1000+" seconds.");
+            }else {
+                CommunicationHelper.closeApp(scenario);
             }
-            CommunicationHelper.closeApp();
         } catch (Exception e) {
-        	CommunicationHelper.closeApp();
+        	CommunicationHelper.closeApp(scenario);
             e.printStackTrace();
         }
     }

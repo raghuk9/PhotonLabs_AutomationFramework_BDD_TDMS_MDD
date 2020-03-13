@@ -1,0 +1,268 @@
+2020-02-24 21:29:44:237 [Appium] Welcome to Appium v1.16.0
+2020-02-24 21:29:44:239 [Appium] Non-default server args:
+2020-02-24 21:29:44:239 [Appium]   address: 127.0.0.1
+2020-02-24 21:29:44:239 [Appium]   port: 62201
+2020-02-24 21:29:44:240 [Appium]   logFile: /Users/kirankumar_v/.jenkins/workspace/JPMC/Logs/log.txt
+2020-02-24 21:29:44:266 [Appium] Appium REST http interface listener started on 127.0.0.1:62201
+2020-02-24 21:29:44:379 [HTTP] --> GET /wd/hub/status
+2020-02-24 21:29:44:380 [HTTP] {}
+2020-02-24 21:29:44:382 [GENERIC] Calling AppiumDriver.getStatus() with args: []
+2020-02-24 21:29:44:383 [GENERIC] Responding to client with driver.getStatus() result: {"build":{"version":"1.16.0"}}
+2020-02-24 21:29:44:389 [HTTP] <-- GET /wd/hub/status 200 7 ms - 68
+2020-02-24 21:29:44:389 [HTTP] 
+2020-02-24 21:29:46:235 [HTTP] --> POST /wd/hub/session
+2020-02-24 21:29:46:235 [HTTP] {"desiredCapabilities":{"nativeWebScreenshot":true,"newCommandTimeout":300,"platformVersion":"9.0","browserName":"Chrome","platformName":"Android","deviceName":"emulator-5554"},"capabilities":{"firstMatch":[{"browserName":"Chrome","platformName":"android"}]}}
+2020-02-24 21:29:46:236 [W3C] Calling AppiumDriver.createSession() with args: [{"nativeWebScreenshot":true,"newCommandTimeout":300,"platformVersion":"9.0","browserName":"Chrome","platformName":"Android","deviceName":"emulator-5554"},null,{"firstMatch":[{"browserName":"Chrome","platformName":"android"}]}]
+2020-02-24 21:29:46:236 [BaseDriver] Event 'newSessionRequested' logged at 1582579786236 (02:59:46 GMT+0530 (India Standard Time))
+2020-02-24 21:29:46:241 [Appium] The following capabilities were provided in the JSONWP desired capabilities that are missing in W3C capabilities: ["nativeWebScreenshot","newCommandTimeout","platformVersion","deviceName"]
+2020-02-24 21:29:46:241 [Appium] Trying to fix W3C capabilities by merging them with JSONWP caps
+2020-02-24 21:29:46:242 [BaseDriver] The capabilities ["nativeWebScreenshot","newCommandTimeout","platformVersion","deviceName"] are not standard capabilities and should have an extension prefix
+2020-02-24 21:29:46:244 [Appium] 
+2020-02-24 21:29:46:244 [Appium] ======================================================================
+2020-02-24 21:29:46:244 [Appium]   DEPRECATION WARNING:
+2020-02-24 21:29:46:245 [Appium] 
+2020-02-24 21:29:46:245 [Appium]   The 'automationName' capability was not provided in the desired 
+2020-02-24 21:29:46:245 [Appium]   capabilities for this Android session
+2020-02-24 21:29:46:246 [Appium] 
+2020-02-24 21:29:46:246 [Appium]   Setting 'automationName=UiAutomator2' by default and using the 
+2020-02-24 21:29:46:246 [Appium]   UiAutomator2 Driver
+2020-02-24 21:29:46:246 [Appium] 
+2020-02-24 21:29:46:246 [Appium]   The next major version of Appium (2.x) will **require** the 
+2020-02-24 21:29:46:247 [Appium]   'automationName' capability to be set for all sessions on all 
+2020-02-24 21:29:46:247 [Appium]   platforms
+2020-02-24 21:29:46:247 [Appium] 
+2020-02-24 21:29:46:247 [Appium]   In previous versions (Appium <= 1.13.x), the default was 
+2020-02-24 21:29:46:247 [Appium]   'automationName=UiAutomator1'
+2020-02-24 21:29:46:248 [Appium] 
+2020-02-24 21:29:46:248 [Appium]   If you wish to use that automation instead of UiAutomator2, please 
+2020-02-24 21:29:46:248 [Appium]   add 'automationName=UiAutomator1' to your desired capabilities
+2020-02-24 21:29:46:248 [Appium] 
+2020-02-24 21:29:46:248 [Appium]   For more information about drivers, please visit 
+2020-02-24 21:29:46:249 [Appium]   http://appium.io/docs/en/about-appium/intro/ and explore the 
+2020-02-24 21:29:46:249 [Appium]   'Drivers' menu
+2020-02-24 21:29:46:249 [Appium] 
+2020-02-24 21:29:46:249 [Appium] ======================================================================
+2020-02-24 21:29:46:249 [Appium] 
+2020-02-24 21:29:46:487 [Appium] Appium v1.16.0 creating new AndroidUiautomator2Driver (v1.40.0) session
+2020-02-24 21:29:46:490 [BaseDriver] W3C capabilities and MJSONWP desired capabilities were provided
+2020-02-24 21:29:46:490 [BaseDriver] Creating session with W3C capabilities: {
+2020-02-24 21:29:46:490 [BaseDriver]   "alwaysMatch": {
+2020-02-24 21:29:46:490 [BaseDriver]     "appium:nativeWebScreenshot": true,
+2020-02-24 21:29:46:490 [BaseDriver]     "appium:newCommandTimeout": 300,
+2020-02-24 21:29:46:490 [BaseDriver]     "appium:platformVersion": "9.0",
+2020-02-24 21:29:46:491 [BaseDriver]     "appium:deviceName": "emulator-5554",
+2020-02-24 21:29:46:491 [BaseDriver]     "browserName": "Chrome",
+2020-02-24 21:29:46:491 [BaseDriver]     "platformName": "android"
+2020-02-24 21:29:46:491 [BaseDriver]   },
+2020-02-24 21:29:46:491 [BaseDriver]   "firstMatch": [
+2020-02-24 21:29:46:492 [BaseDriver]     {}
+2020-02-24 21:29:46:492 [BaseDriver]   ]
+2020-02-24 21:29:46:492 [BaseDriver] }
+2020-02-24 21:29:46:498 [BaseDriver] Session created with session id: 323a192f-89ad-4860-ae82-bbf343d79c9b
+2020-02-24 21:29:46:498 [UiAutomator2] We're going to run a Chrome-based session
+2020-02-24 21:29:46:499 [UiAutomator2] Chrome-type package and activity are com.android.chrome and com.google.android.apps.chrome.Main
+2020-02-24 21:29:46:499 [UiAutomator2] Starting 'com.android.chrome' directly on the device
+2020-02-24 21:29:46:507 [ADB] Found 31 'build-tools' folders under '/Users/kirankumar_v/Library/Android/sdk' (newest first):
+2020-02-24 21:29:46:507 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/29.0.3
+2020-02-24 21:29:46:507 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/29.0.2
+2020-02-24 21:29:46:507 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/29.0.1
+2020-02-24 21:29:46:508 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/29.0.0
+2020-02-24 21:29:46:508 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/28.0.3
+2020-02-24 21:29:46:508 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/28.0.2
+2020-02-24 21:29:46:508 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/28.0.1
+2020-02-24 21:29:46:508 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/28.0.0
+2020-02-24 21:29:46:508 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/27.0.3
+2020-02-24 21:29:46:508 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/27.0.2
+2020-02-24 21:29:46:509 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/27.0.1
+2020-02-24 21:29:46:509 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/27.0.0
+2020-02-24 21:29:46:509 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/26.0.3
+2020-02-24 21:29:46:509 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/26.0.2
+2020-02-24 21:29:46:509 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/26.0.1
+2020-02-24 21:29:46:509 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/26.0.0
+2020-02-24 21:29:46:509 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/25.0.3
+2020-02-24 21:29:46:510 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/25.0.2
+2020-02-24 21:29:46:510 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/25.0.1
+2020-02-24 21:29:46:510 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/25.0.0
+2020-02-24 21:29:46:510 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/24.0.3
+2020-02-24 21:29:46:511 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/24.0.2
+2020-02-24 21:29:46:511 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/24.0.1
+2020-02-24 21:29:46:511 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/24.0.0
+2020-02-24 21:29:46:511 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/23.0.3
+2020-02-24 21:29:46:512 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/23.0.2
+2020-02-24 21:29:46:512 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/23.0.1
+2020-02-24 21:29:46:512 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/22.0.1
+2020-02-24 21:29:46:512 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/21.1.2
+2020-02-24 21:29:46:512 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/20.0.0
+2020-02-24 21:29:46:512 [ADB]     /Users/kirankumar_v/Library/Android/sdk/build-tools/19.1.0
+2020-02-24 21:29:46:513 [ADB] Using 'adb' from '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb'
+2020-02-24 21:29:46:513 [AndroidDriver] Retrieving device list
+2020-02-24 21:29:46:514 [ADB] Trying to find a connected android device
+2020-02-24 21:29:46:514 [ADB] Getting connected devices...
+2020-02-24 21:29:46:535 [ADB] Connected devices: [{"udid":"emulator-5554","state":"device"}]
+2020-02-24 21:29:46:536 [AndroidDriver] Looking for a device with Android '9.0'
+2020-02-24 21:29:46:536 [ADB] Setting device id to emulator-5554
+2020-02-24 21:29:46:536 [ADB] Getting device platform version
+2020-02-24 21:29:46:537 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell getprop ro.build.version.release'
+2020-02-24 21:29:46:565 [ADB] Current device property 'ro.build.version.release': 9
+2020-02-24 21:29:46:566 [AndroidDriver] Using device: emulator-5554
+2020-02-24 21:29:46:567 [ADB] Using 'adb' from '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb'
+2020-02-24 21:29:46:567 [ADB] Setting device id to emulator-5554
+2020-02-24 21:29:46:568 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell getprop ro.build.version.sdk'
+2020-02-24 21:29:46:588 [ADB] Current device property 'ro.build.version.sdk': 28
+2020-02-24 21:29:46:589 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell getprop ro.build.version.release'
+2020-02-24 21:29:46:609 [ADB] Current device property 'ro.build.version.release': 9
+2020-02-24 21:29:46:610 [ADB] Device API level: 28
+2020-02-24 21:29:46:610 [UiAutomator2] Relaxing hidden api policy
+2020-02-24 21:29:46:610 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell settings put global hidden_api_policy_pre_p_apps 1'
+2020-02-24 21:29:46:642 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell settings put global hidden_api_policy_p_apps 1'
+2020-02-24 21:29:46:672 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell settings put global hidden_api_policy 1'
+2020-02-24 21:29:46:699 [AndroidDriver] No app sent in, not parsing package/activity
+2020-02-24 21:29:46:700 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 wait-for-device'
+2020-02-24 21:29:46:707 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell echo ping'
+2020-02-24 21:29:46:721 [AndroidDriver] Pushing settings apk to device...
+2020-02-24 21:29:46:722 [ADB] Getting install status for io.appium.settings
+2020-02-24 21:29:46:722 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell dumpsys package io.appium.settings'
+2020-02-24 21:29:46:760 [ADB] 'io.appium.settings' is installed
+2020-02-24 21:29:46:760 [ADB] Getting package info for 'io.appium.settings'
+2020-02-24 21:29:46:761 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell dumpsys package io.appium.settings'
+2020-02-24 21:29:46:792 [ADB] The version name of the installed 'io.appium.settings' is greater or equal to the application version name ('2.15.0' >= '2.15.0')
+2020-02-24 21:29:46:793 [ADB] There is no need to install/upgrade '/usr/local/lib/node_modules/appium/node_modules/io.appium.settings/apks/settings_apk-debug.apk'
+2020-02-24 21:29:46:793 [ADB] Getting IDs of all 'io.appium.settings' processes
+2020-02-24 21:29:46:794 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell 'pgrep --help; echo $?''
+2020-02-24 21:29:46:812 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell pgrep -f io\\.appium\\.settings'
+2020-02-24 21:29:46:863 [AndroidDriver] io.appium.settings is already running. There is no need to reset its permissions.
+2020-02-24 21:29:46:864 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell appops set io.appium.settings android\:mock_location allow'
+2020-02-24 21:29:46:904 [Logcat] Starting logcat capture
+2020-02-24 21:29:46:930 [UiAutomator2] Forwarding UiAutomator2 Server port 6790 to 8202
+2020-02-24 21:29:46:930 [ADB] Forwarding system: 8202 to device: 6790
+2020-02-24 21:29:46:930 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 forward tcp\:8202 tcp\:6790'
+2020-02-24 21:29:46:965 [ADB] Getting install status for io.appium.uiautomator2.server
+2020-02-24 21:29:46:966 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell dumpsys package io.appium.uiautomator2.server'
+2020-02-24 21:29:47:003 [ADB] 'io.appium.uiautomator2.server' is installed
+2020-02-24 21:29:47:003 [ADB] Getting package info for 'io.appium.uiautomator2.server'
+2020-02-24 21:29:47:004 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell dumpsys package io.appium.uiautomator2.server'
+2020-02-24 21:29:47:045 [ADB] The version name of the installed 'io.appium.uiautomator2.server' is greater or equal to the application version name ('4.5.2' >= '4.5.2')
+2020-02-24 21:29:47:045 [UiAutomator2] io.appium.uiautomator2.server installation state: sameVersionInstalled
+2020-02-24 21:29:47:046 [ADB] Checking app cert for /usr/local/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v4.5.2.apk
+2020-02-24 21:29:47:047 [ADB] Using 'apksigner' from '/Users/kirankumar_v/Library/Android/sdk/build-tools/29.0.3/apksigner'
+2020-02-24 21:29:47:048 [ADB] Starting '/Users/kirankumar_v/Library/Android/sdk/build-tools/29.0.3/apksigner' with args '["verify","--print-certs","/usr/local/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v4.5.2.apk"]'
+2020-02-24 21:29:47:807 [ADB] apksigner stdout: Signer #1 certificate DN: EMAILADDRESS=android@android.com, CN=Android, OU=Android, O=Android, L=Mountain View, ST=California, C=US
+2020-02-24 21:29:47:807 [ADB] Signer #1 certificate SHA-256 digest: a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc
+2020-02-24 21:29:47:807 [ADB] Signer #1 certificate SHA-1 digest: 61ed377e85d386a8dfee6b864bd85b0bfaa5af81
+2020-02-24 21:29:47:808 [ADB] Signer #1 certificate MD5 digest: e89b158e4bcf988ebd09eb83f5378e87
+2020-02-24 21:29:47:808 [ADB] 
+2020-02-24 21:29:47:808 [ADB] '/usr/local/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v4.5.2.apk' is already signed.
+2020-02-24 21:29:47:809 [ADB] Getting install status for io.appium.uiautomator2.server.test
+2020-02-24 21:29:47:809 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell dumpsys package io.appium.uiautomator2.server.test'
+2020-02-24 21:29:47:855 [ADB] 'io.appium.uiautomator2.server.test' is installed
+2020-02-24 21:29:47:856 [ADB] Checking app cert for /usr/local/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
+2020-02-24 21:29:47:857 [ADB] Starting '/Users/kirankumar_v/Library/Android/sdk/build-tools/29.0.3/apksigner' with args '["verify","--print-certs","/usr/local/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk"]'
+2020-02-24 21:29:48:299 [ADB] apksigner stdout: Signer #1 certificate DN: EMAILADDRESS=android@android.com, CN=Android, OU=Android, O=Android, L=Mountain View, ST=California, C=US
+2020-02-24 21:29:48:300 [ADB] Signer #1 certificate SHA-256 digest: a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc
+2020-02-24 21:29:48:300 [ADB] Signer #1 certificate SHA-1 digest: 61ed377e85d386a8dfee6b864bd85b0bfaa5af81
+2020-02-24 21:29:48:300 [ADB] Signer #1 certificate MD5 digest: e89b158e4bcf988ebd09eb83f5378e87
+2020-02-24 21:29:48:300 [ADB] 
+2020-02-24 21:29:48:300 [ADB] '/usr/local/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk' is already signed.
+2020-02-24 21:29:48:300 [UiAutomator2] Server packages are not going to be (re)installed
+2020-02-24 21:29:48:302 [UiAutomator2] Waiting up to 30000ms for services to be available
+2020-02-24 21:29:48:303 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell pm list instrumentation'
+2020-02-24 21:29:48:334 [UiAutomator2] Instrumentation target 'io.appium.uiautomator2.server.test/androidx.test.runner.AndroidJUnitRunner' is available
+2020-02-24 21:29:48:335 [UiAutomator2] No app capability. Assuming it is already on the device
+2020-02-24 21:29:48:335 [ADB] Getting install status for com.android.chrome
+2020-02-24 21:29:48:335 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell dumpsys package com.android.chrome'
+2020-02-24 21:29:48:379 [ADB] 'com.android.chrome' is installed
+2020-02-24 21:29:48:379 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell am force-stop com.android.chrome'
+2020-02-24 21:29:48:409 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell pm clear com.android.chrome'
+2020-02-24 21:29:48:563 [AndroidDriver] Performed fast reset on the installed 'com.android.chrome' application (stop and clear)
+2020-02-24 21:29:48:563 [UiAutomator2] Performing shallow cleanup of automation leftovers
+2020-02-24 21:29:48:598 [UiAutomator2] No obsolete sessions have been detected (Error: socket hang up)
+2020-02-24 21:29:48:598 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell am force-stop io.appium.uiautomator2.server.test'
+2020-02-24 21:29:48:635 [UiAutomator2] Starting UIAutomator2 server 4.5.2
+2020-02-24 21:29:48:636 [UiAutomator2] Using UIAutomator2 server from '/usr/local/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v4.5.2.apk' and test from '/usr/local/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk'
+2020-02-24 21:29:48:636 [UiAutomator2] Waiting up to 30000ms for UiAutomator2 to be online...
+2020-02-24 21:29:48:636 [ADB] Creating ADB subprocess with args: ["-P",5037,"-s","emulator-5554","shell","am","instrument","-w","io.appium.uiautomator2.server.test/androidx.test.runner.AndroidJUnitRunner"]
+2020-02-24 21:29:49:715 [WD Proxy] Matched '/status' to command name 'getStatus'
+2020-02-24 21:29:49:716 [WD Proxy] Proxying [GET /status] to [GET http://127.0.0.1:8202/wd/hub/status] with no body
+2020-02-24 21:29:49:721 [WD Proxy] Got an unexpected response with status undefined: {"code":"ECONNRESET"}
+2020-02-24 21:29:49:800 [Instrumentation] io.appium.uiautomator2.server.test.AppiumUiAutomator2Server:
+2020-02-24 21:29:50:794 [WD Proxy] Matched '/status' to command name 'getStatus'
+2020-02-24 21:29:50:795 [WD Proxy] Proxying [GET /status] to [GET http://127.0.0.1:8202/wd/hub/status] with no body
+2020-02-24 21:29:50:801 [WD Proxy] Got an unexpected response with status undefined: {"code":"ECONNRESET"}
+2020-02-24 21:29:51:803 [WD Proxy] Matched '/status' to command name 'getStatus'
+2020-02-24 21:29:51:803 [WD Proxy] Proxying [GET /status] to [GET http://127.0.0.1:8202/wd/hub/status] with no body
+2020-02-24 21:29:51:900 [WD Proxy] Got response with status 200: {"sessionId":"None","value":{"ready":true,"message":"UiAutomator2 Server is ready to accept commands"}}
+2020-02-24 21:29:51:900 [UiAutomator2] The initialization of the instrumentation process took 3265ms
+2020-02-24 21:29:51:900 [WD Proxy] Matched '/session' to command name 'createSession'
+2020-02-24 21:29:51:901 [WD Proxy] Proxying [POST /session] to [POST http://127.0.0.1:8202/wd/hub/session] with body: {"capabilities":{"firstMatch":[{"platform":"LINUX","webStorageEnabled":false,"takesScreenshot":true,"javascriptEnabled":true,"databaseEnabled":false,"networkConnectionEnabled":true,"locationContextEnabled":false,"warnings":{},"desired":{"browserName":"Chrome","platformName":"android","nativeWebScreenshot":true,"newCommandTimeout":300,"platformVersion":"9.0","deviceName":"emulator-5554"},"browserName":"Chrome","platformName":"android","nativeWebScreenshot":true,"newCommandTimeout":300,"platformVersion":"9.0","deviceName":"emulator-5554","appPackage":"com.android.chrome","appActivity":"com.google.android.apps.chrome.Main","deviceUDID":"emulator-5554"}],"alwaysMatch":{}}}
+2020-02-24 21:29:51:917 [WD Proxy] Got response with status 200: {"sessionId":"7f4edf4f-48ed-460e-b9db-7e68aa7a0544","value":{"sessionId":"7f4edf4f-48ed-460e-b9db-7e68aa7a0544","capabilities":{"firstMatch":[{"platform":"LINUX","webStorageEnabled":false,"takesScreenshot":true,"javascriptEnabled":true,"databaseEnabled":false,"networkConnectionEnabled":true,"locationContextEnabled":false,"warnings":{},"desired":{"browserName":"Chrome","platformName":"android","nativeWebScreenshot":true,"newCommandTimeout":300,"platformVersion":"9.0","deviceName":"emulator-5554"},"browserName":"Chrome","platformName":"android","nativeWebScreenshot":true,"newCommandTimeout":300,"platformVersion":"9.0","deviceName":"emulator-5554","appPackage":"com.android.chrome","appActivity":"com.google.android.apps.chrome.Main","deviceUDID":"emulator-5554"}],"alwaysMatch":{}}}}
+2020-02-24 21:29:51:917 [WD Proxy] Determined the downstream protocol as 'W3C'
+2020-02-24 21:29:51:923 [WD Proxy] Proxying [GET /appium/device/info] to [GET http://127.0.0.1:8202/wd/hub/session/7f4edf4f-48ed-460e-b9db-7e68aa7a0544/appium/device/info] with no body
+2020-02-24 21:29:51:961 [WD Proxy] Got response with status 200: {"sessionId":"7f4edf4f-48ed-460e-b9db-7e68aa7a0544","value":{"androidId":"3ee6d1848e62b60a","manufacturer":"Google","model":"AOSP on IA Emulator","brand":"google","apiVersion":"28","platformVersion":"9","carrierName":"Android","realDisplaySize":"1080x2160","displayDensity":440,"networks":[{"type":1,"typeName":"WIFI","subtype":0,"subtypeName":"","isConnected":true,"detailedState":"CONNECTED","state":"CONNECTED","extraInfo":null,"isAvailable":true,"isFailover":false,"isRoaming":false,"capabilities":{"transportTypes":"TRANSPORT_WIFI","networkCapabilities":"NET_CAPABILITY_NOT_METERED,NET_CAPABILITY_INTERNET,NET_CAPABILITY_NOT_RESTRICTED,NET_CAPABILITY_TRUSTED,NET_CAPABILITY_NOT_VPN,NET_CAPABILITY_NOT_ROAMING,NET_CAPABILITY_FOREGROUND,NET_CAPABILITY_NOT_CONGESTED,NET_CAPABILITY_NOT_SUSPENDED","linkUpstreamBandwidthKbps":1048576,"linkDownBandwidthKbps":1048576,"signalStrength":-50,"networkSpecifier":null,"SSID":null}},{"type":0,"typeName":"MOBILE","subtype":13,"subtypeName":"LTE","isConnected":true,"detailedStat...
+2020-02-24 21:29:51:962 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell dumpsys window'
+2020-02-24 21:29:52:010 [AndroidDriver] Screen already unlocked, doing nothing
+2020-02-24 21:29:52:010 [AndroidDriver] Starting a chrome-based browser session
+2020-02-24 21:29:52:020 [AndroidDriver] A port was not given, using random free port: 8000
+2020-02-24 21:29:52:020 [AndroidDriver] Automated Chromedriver download is disabled. Use 'chromedriver_autodownload' server feature to enable it
+2020-02-24 21:29:52:021 [AndroidDriver] Before starting chromedriver, androidPackage is 'com.android.chrome'
+2020-02-24 21:29:52:022 [Chromedriver] Changed state to 'starting'
+2020-02-24 21:29:52:024 [Chromedriver] Found 1 executable in '/usr/local/lib/node_modules/appium/node_modules/appium-chromedriver/chromedriver/mac'
+2020-02-24 21:29:52:048 [Chromedriver] The following Chromedriver executables were found:
+2020-02-24 21:29:52:048 [Chromedriver]     '/usr/local/lib/node_modules/appium/node_modules/appium-chromedriver/chromedriver/mac/chromedriver' (version '80.0.3987.106', minimum Chrome version 'Unknown')
+2020-02-24 21:29:52:049 [ADB] Getting package info for 'com.android.chrome'
+2020-02-24 21:29:52:049 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 shell dumpsys package com.android.chrome'
+2020-02-24 21:29:52:077 [Chromedriver] Found Chrome bundle 'com.android.chrome' version '80.0.3987'
+2020-02-24 21:29:52:077 [Chromedriver] No known Chromedriver available to automate Chrome version '80.0.3987'
+2020-02-24 21:29:52:077 [Chromedriver] Using Chromedriver version '80.0.3987.106', which has not been tested with Appium. You could also try to enable automated chromedrivers download server feature
+2020-02-24 21:29:52:078 [Chromedriver] Set chromedriver binary as: /usr/local/lib/node_modules/appium/node_modules/appium-chromedriver/chromedriver/mac/chromedriver
+2020-02-24 21:29:52:078 [Chromedriver] Killing any old chromedrivers, running: pkill -15 -f "/usr/local/lib/node_modules/appium/node_modules/appium-chromedriver/chromedriver/mac/chromedriver.*--port=8000"
+2020-02-24 21:29:52:115 [Chromedriver] No old chromedrivers seem to exist
+2020-02-24 21:29:52:115 [Chromedriver] Cleaning any old adb forwarded port socket connections
+2020-02-24 21:29:52:116 [ADB] List forwarding ports
+2020-02-24 21:29:52:116 [ADB] Running '/Users/kirankumar_v/Library/Android/sdk/platform-tools/adb -P 5037 -s emulator-5554 forward --list'
+2020-02-24 21:29:52:123 [Chromedriver] Spawning chromedriver with: /usr/local/lib/node_modules/appium/node_modules/appium-chromedriver/chromedriver/mac/chromedriver --url-base=wd/hub --port=8000 --adb-port=5037 --verbose
+2020-02-24 21:29:52:137 [Chromedriver] Chromedriver version: '80.0.3987.106'
+2020-02-24 21:29:52:138 [WD Proxy] Matched '/status' to command name 'getStatus'
+2020-02-24 21:29:52:139 [WD Proxy] Proxying [GET /status] to [GET http://127.0.0.1:8000/wd/hub/status] with no body
+2020-02-24 21:29:52:141 [WD Proxy] Got an unexpected response with status undefined: {"errno":"ECONNREFUSED","code":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":8000}
+2020-02-24 21:29:52:389 [WD Proxy] Matched '/status' to command name 'getStatus'
+2020-02-24 21:29:52:390 [WD Proxy] Proxying [GET /status] to [GET http://127.0.0.1:8000/wd/hub/status] with no body
+2020-02-24 21:29:52:408 [WD Proxy] Got response with status 200: {"value":{"build":{"version":"80.0.3987.106 (f68069574609230cf9b635cd784cfb1bf81bb53a-refs/branch-heads/3987@{#882})"},"message":"ChromeDriver ready for new sessions.","os":{"arch":"x86_64","name":"Mac OS X","version":"10.15.3"},"ready":true}}
+2020-02-24 21:29:52:409 [Chromedriver] Starting W3C Chromedriver session with capabilities: {
+2020-02-24 21:29:52:409 [Chromedriver]   "capabilities": {
+2020-02-24 21:29:52:409 [Chromedriver]     "alwaysMatch": {
+2020-02-24 21:29:52:409 [Chromedriver]       "goog:chromeOptions": {
+2020-02-24 21:29:52:409 [Chromedriver]         "androidPackage": "com.android.chrome",
+2020-02-24 21:29:52:409 [Chromedriver]         "androidDeviceSerial": "emulator-5554"
+2020-02-24 21:29:52:409 [Chromedriver]       },
+2020-02-24 21:29:52:410 [Chromedriver]       "goog:loggingPrefs": {
+2020-02-24 21:29:52:410 [Chromedriver]         "browser": "ALL"
+2020-02-24 21:29:52:410 [Chromedriver]       }
+2020-02-24 21:29:52:410 [Chromedriver]     }
+2020-02-24 21:29:52:410 [Chromedriver]   }
+2020-02-24 21:29:52:410 [Chromedriver] }
+2020-02-24 21:29:52:410 [WD Proxy] Matched '/session' to command name 'createSession'
+2020-02-24 21:29:52:411 [WD Proxy] Proxying [POST /session] to [POST http://127.0.0.1:8000/wd/hub/session] with body: {"capabilities":{"alwaysMatch":{"goog:chromeOptions":{"androidPackage":"com.android.chrome","androidDeviceSerial":"emulator-5554"},"goog:loggingPrefs":{"browser":"ALL"}}}}
+2020-02-24 21:29:54:564 uncaughtException: write EPIPE
+Error: write EPIPE
+    at afterWriteDispatched (internal/stream_base_commons.js:149:25)
+    at writeGeneric (internal/stream_base_commons.js:140:3)
+    at Socket._writeGeneric (net.js:776:11)
+    at Socket._write (net.js:788:8)
+    at doWrite (_stream_writable.js:435:12)
+    at writeOrBuffer (_stream_writable.js:419:5)
+    at Socket.Writable.write (_stream_writable.js:309:11)
+    at Console.log (/usr/local/lib/node_modules/appium/node_modules/winston/lib/winston/transports/console.js:79:23)
+    at Console._write (/usr/local/lib/node_modules/appium/node_modules/winston-transport/index.js:102:17)
+    at doWrite (/usr/local/lib/node_modules/appium/node_modules/readable-stream/lib/_stream_writable.js:428:64)
+    at writeOrBuffer (/usr/local/lib/node_modules/appium/node_modules/readable-stream/lib/_stream_writable.js:417:5)
+    at Console.Writable.write (/usr/local/lib/node_modules/appium/node_modules/readable-stream/lib/_stream_writable.js:334:11)
+    at DerivedLogger.ondata (/usr/local/lib/node_modules/appium/node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js:662:20)
+    at DerivedLogger.emit (events.js:228:7)
+    at addChunk (/usr/local/lib/node_modules/appium/node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js:297:12)
+    at readableAddChunk (/usr/local/lib/node_modules/appium/node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js:279:11)
+    at DerivedLogger.Readable.push (/usr/local/lib/node_modules/appium/node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js:240:10)
+    at DerivedLogger.Transform.push (/usr/local/lib/node_modules/appium/node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js:139:32)
+    at DerivedLogger._transform (/usr/local/lib/node_modules/appium/node_modules/winston/lib/winston/logger.js:305:12)
+    at DerivedLogger.Transform._read (/usr/local/lib/node_modules/appium/node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js:177:10)
+    at DerivedLogger.Transform._write (/usr/local/lib/node_modules/appium/node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js:164:83)
+    at doWrite (/usr/local/lib/node_modules/appium/node_modules/winston/node_modules/readable-stream/lib/_stream_writable.js:405:139)

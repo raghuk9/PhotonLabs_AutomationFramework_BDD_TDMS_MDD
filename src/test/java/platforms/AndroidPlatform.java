@@ -1,13 +1,17 @@
 package platforms;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import models.States;
+
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
@@ -107,16 +111,6 @@ public class AndroidPlatform implements MobilePlatform {
         }
         }
 
-    @Override
-    public void navigateToLogin() throws Exception {
-	    try {
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            loginPage.getEmailTextBox().clear();
-            driver.hideKeyboard();
-        }catch (Exception e){
-	        throw new Exception("Unknown Error while navigating to login");
-        }
-    }
 
     @Override
     public void validateLogIn() throws Exception {
@@ -296,10 +290,6 @@ public class AndroidPlatform implements MobilePlatform {
 		// TODO Auto-generated method stub
 		return null;
 	}
-    @Override
-	public void login() throws Exception {
-		
-	}
 
     @Override
     public void validateLogOut() throws Exception {
@@ -313,16 +303,6 @@ public class AndroidPlatform implements MobilePlatform {
             throw new Exception("Unknown error while validating logout", e);
         }
     }
-
-	@Override
-	public void enterEmailAndPassword(String email, String password) throws Exception {
-		
-	}
-
-	@Override
-	public void validateUnsuccessfulLogin(String error) throws Exception {
-		
-	}
 
     @Override
     public void validateReward() throws Exception {
@@ -471,6 +451,89 @@ public class AndroidPlatform implements MobilePlatform {
 
 	@Override
 	public void navigateToSigninPage() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void goToHome() throws Exception {
+		launch();
+	}
+
+	@Override
+	public void visualValidtionOfLogo() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visualValiationOfMenu() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void homePageLodeTest(int time) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void signInPageLodeTest(int time) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickOnFindaCreditCardlink() throws IOException, ParseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validatePageNavigation(String pageTitle) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickOnTryOurCardFinderLink() throws IOException, ParseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickOnPersonalIcon() throws IOException, ParseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickOnRewardsIcon() throws IOException, ParseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickOnCashBackIcon() throws IOException, ParseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickOnBalanceTransferIcon() throws IOException, ParseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void validateCardShowsAsPerTheCriteria(List<String> criteria) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickOnBusinessIcon() throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
