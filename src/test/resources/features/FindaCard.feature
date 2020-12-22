@@ -1,6 +1,6 @@
-Feature: Functional validation of Find a Card
+Feature: FindaCard
 
-@Smoke @JPMC-16
+@Smoke @DEMO-1
 Scenario: Find a credit card for Personal Rewards Cash Back Balance Transfer
 	Given JPMC application is launched
 	When the user clicks on find a credit card link
@@ -17,7 +17,7 @@ Scenario: Find a credit card for Personal Rewards Cash Back Balance Transfer
 	|Cash Back|
 	|No Annual Fee|
 	
-@Smoke @JPMC-17
+@Smoke1 @DEMO-2
 Scenario: Find a credit card for Business Rewards Cash Back
 	Given JPMC application is launched
 	When the user clicks on find a credit card link

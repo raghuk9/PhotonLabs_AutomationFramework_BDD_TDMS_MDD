@@ -136,6 +136,7 @@ public class WebPortal implements JPMCPlatform {
 			chromePref.put("intl.accept_languages", ConfigurationHelper.getLanguage());
 			String platformName = ConfigurationHelper.getPlatform().toLowerCase();
 			String browserName = ConfigurationHelper.getBrowserName().toLowerCase();
+			VideoRecorder.startRecording();
 			if (platformName.equalsIgnoreCase("webPortal_Dev")) {
 				switch (browserName) {
 				case "chrome":
@@ -173,7 +174,6 @@ public class WebPortal implements JPMCPlatform {
 				pageLoadtime = pageLoad.getTime(TimeUnit.SECONDS);
 				pageLoad.reset();
 				System.out.println("Page Load Time : " + pageLoadtime);
-				VideoRecorder.startRecording();
 			} else if (platformName.equalsIgnoreCase("android_Web")) {
 				ConfigurationHelper.init();
 				DesiredCapabilities capabilities = new DesiredCapabilities();

@@ -168,7 +168,7 @@ public class ZapiTestMgmt extends APICall {
         int issueId;
         String responseString = getCall(jiraBaseURL + jiraURI + "issue/" + testCaseId + "?fields=id");
         JSONObject obj = new JSONObject(responseString);
-        issueId = Integer.valueOf(obj.getString("id"));
+        issueId = Integer.parseInt(obj.getString("id"));
         System.out.println("Jira Testcase ID has been retrieved");
         return issueId;
     }

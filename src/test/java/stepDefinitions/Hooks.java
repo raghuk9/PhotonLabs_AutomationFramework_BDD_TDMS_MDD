@@ -24,7 +24,7 @@ public class Hooks {
     public void afterScenario(Scenario scenario) throws Exception {
         String testCaseId;
         try {
-            testCaseId = DataHelper.getCurrentData().get("testCaseId");
+            testCaseId = DataHelper.getTestCaseId();
             end = System.currentTimeMillis();
             long timeTaken = end - start;
             System.out.println("Time Taken for scenario execution : "+timeTaken/1000+" seconds.");

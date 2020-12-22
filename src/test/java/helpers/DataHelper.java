@@ -5,12 +5,10 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class DataHelper {
@@ -22,6 +20,8 @@ public class DataHelper {
 	private static String currentScenarioKey;
 
 	private static String sheetName;
+
+	private static String testCaseId;
 
 	public static HashMap<String, HashMap<String, String>> getData() {
 		return data;
@@ -58,7 +58,6 @@ public class DataHelper {
 					for (int j = 0; j < columns; j++) {
 						String value = formatter.formatCellValue(currentRow.getCell(j));
 						currentHash.put(headerRow.getCell(j).getStringCellValue(), value);
-
 					}
 					data.put(getScenarioKey(currentHash.get("featureFile"), currentHash.get("scenario")), currentHash);
 				}
@@ -143,4 +142,7 @@ public class DataHelper {
 		return featureFile.toLowerCase().replace(' ', '-') + scenarioName.toLowerCase().replace(' ', '-');
 	}
 
+	public static String getTestCaseId(){
+		return data.get(currentScenarioKey).get("testCaseId");
+	}
 }
