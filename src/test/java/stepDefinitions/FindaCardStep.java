@@ -50,6 +50,11 @@ public class FindaCardStep extends AbstractStepDefinition{
 		platform.clickOnCashBackIcon();
 	}
 
+	@Then("^the user clicks on No Annual Fee icon$")
+	public void the_use_clicks_on_No_Annual_Fee_icon() throws Throwable {
+		platform.clickOnNoAnnualFeeIcon();
+	}
+
 	@Then("^the user clicks on Balance Transfer icon$")
 	public void the_user_clicks_on_Balance_Transfer_icon() throws Throwable {
 		platform.clickOnBalanceTransferIcon();

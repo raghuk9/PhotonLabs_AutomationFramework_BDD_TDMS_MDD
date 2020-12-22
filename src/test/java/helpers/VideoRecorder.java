@@ -35,30 +35,6 @@ public class VideoRecorder {
     
     private static String videoPath = "";
 
-//    public static void main(String[] args) throws Exception {
-//
-//        startRecording();
-//
-//        WebDriver driver;
-//        System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver_70v");
-//		ChromeOptions options = new ChromeOptions();
-//		options.addArguments("start-maximized");
-//		options.addArguments("disable-infobars");
-//		driver = new ChromeDriver(options);
-//		ConfigurationHelper.init();
-//		driver.manage().deleteAllCookies();
-//		driver.manage().window().fullscreen();
-//		driver.get("http://www.google.com");
-//		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-//        
-//        WebElement element = driver.findElement(By.name("q"));
-//        element.sendKeys("BreizhCamp 2018");
-//        element.submit();
-//        System.out.println("Page title is: " + driver.getTitle());
-//        driver.quit();
-//        stopRecording();
-//    }
-
     public static String startRecording() throws Exception {
     	videoPath = "";
     	String fileName = "JPMC";

@@ -1,9 +1,11 @@
 package platforms;
 
+import platforms.Interfaces.FindaCard;
+
 import java.io.File;
 import java.util.List;
 
-public interface JPMCPlatform {
+public interface JPMCPlatform extends FindaCard {
 
     void launch() throws Exception;
     
@@ -76,23 +78,4 @@ public interface JPMCPlatform {
     void homePageLodeTest(int time) throws Exception;
     
     void signInPageLodeTest(int time) throws Exception;
-    
-    void clickOnFindaCreditCardlink() throws Exception;
-    
-    void validatePageNavigation(String pageTitle);
-    
-    void clickOnTryOurCardFinderLink() throws Exception;
-    
-    void clickOnPersonalIcon() throws Exception;
-    
-    void clickOnRewardsIcon() throws Exception;
-    
-    void clickOnCashBackIcon() throws Exception;
-    
-    void clickOnBalanceTransferIcon() throws Exception;
-    
-    void validateCardShowsAsPerTheCriteria(List<String> criteria) throws Exception;
-    
-    void clickOnBusinessIcon() throws Exception;
-
 }

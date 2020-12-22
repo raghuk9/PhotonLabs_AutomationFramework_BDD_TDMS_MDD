@@ -176,11 +176,11 @@ public class JpmcRewardsPage {
     /////////////////////////////
     
     public WebElement getFindaCardLink() {
-    	return driver.findElement(By.xpath("//div[@id='slide3']/div/a"));
+    	return driver.findElement(By.xpath("//div[@id='slick-slide01']//div[@class='carousel--custom-pager__icon icon-credit-medium']"));
     }
     
     public WebElement getTryOurCardFinderLink() {
-    	return driver.findElement(By.xpath("//a[text()='Try our Card Finder']"));
+    	return driver.findElement(By.xpath("//a[@data-lh-name='CardFinder']"));
     }
     
     public WebElement getPersonalIcon() {
@@ -194,17 +194,21 @@ public class JpmcRewardsPage {
     public WebElement getCashBackIcon() {
     	return driver.findElement(By.xpath("//span[text()='Cash Back']/parent::a[@style='display: inline-block;']"));
     }
+
+    public WebElement getNoAnnualFeeIcon() {
+        return driver.findElement(By.xpath("//span[text()='No Annual Fee']/parent::a[@style='display: inline-block;']"));
+    }
     
     public WebElement getBalanceTransferIcon() {
     	return driver.findElement(By.xpath("//span[text()='Balance Transfer']/parent::a[@style='display: inline-block;']"));
     }
     
     public List<WebElement> getCardSection(){
-    	return driver.findElements(By.xpath("//div[@id='initialcardsresults']/div/div[2]//div[contains(@id,'slick-slide')]"));
+    	return driver.findElements(By.xpath("//div[contains(@id,'slick-slide0')]"));
     }
     
     public List<WebElement> getCardCriteria(int index){
-    	return driver.findElements(By.xpath("(//div[@id='initialcardsresults']/div/div[2]//div[contains(@id,'slick-slide')])["+index+"]//li"));
+    	return driver.findElements(By.xpath("(//div[contains(@id,'slick-slide0')])["+index+"]//li"));
     }
     
     public WebElement getBusinessIcon() {

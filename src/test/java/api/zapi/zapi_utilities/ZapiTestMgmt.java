@@ -255,7 +255,7 @@ public class ZapiTestMgmt extends APICall {
     }
 
     private StringEntity createBugPayload(String priorityId, String summary, String description,
-            String assignee) throws JSONException, Exception {
+            String assignee) throws Exception {
     	
     	JSONObject createBugObj = new JSONObject();
     	JSONObject fieldObj = new JSONObject();

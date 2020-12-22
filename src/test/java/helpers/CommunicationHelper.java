@@ -229,8 +229,8 @@ public class CommunicationHelper {
 			AndroidPlatform.getDriver().closeApp();
 		} else if (WebPortal.getDriver() != null) {
 			WebPortal.getDriver().quit();
+			VideoRecorder.stopRecording();
 		}
-		VideoRecorder.stopRecording();
 		if (!scenario.isFailed()) {
 			if (videoPath.delete()) {
 				System.out.println("File deleted successfully");

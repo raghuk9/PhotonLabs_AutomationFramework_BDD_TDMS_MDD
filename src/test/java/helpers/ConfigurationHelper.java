@@ -38,7 +38,7 @@ public class ConfigurationHelper {
 		driverUrl = url;
 	}
 	
-	private static JSONObject getPlatformProperties() throws FileNotFoundException, IOException, ParseException {
+	private static JSONObject getPlatformProperties() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(new FileReader("src/test/configuration/Config.json"));
 		JSONObject jsonObject = (JSONObject) obj;

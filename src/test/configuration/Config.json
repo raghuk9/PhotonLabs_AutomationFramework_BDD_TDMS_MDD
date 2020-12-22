@@ -3,7 +3,7 @@
   "featureFile": "src/test/resources/testData/WebFeatureData.xlsx",
   "baseUri_es": "https://www.chase.com/espanol",
   "baseUri_en-us": "https://www.chase.com",
-  "browserName":"chrome"
+   "browserName":"chrome"
  },
  "webPortal_Stg":{
   "featureFile": "src/test/resources/testData/WebFeatureData.xlsx",
@@ -21,7 +21,8 @@
 },
  "android_Web":{
   "platformName": "Android",
-  "deviceName": "emulator-5554",
+  "deviceName": "Samsung S7",
+  "udid": "ce061606db0ccd1102",
   "platformVersion": "9.0",
   "browserName": "Chrome",
   "driverUrl": "http://127.0.0.1:4723/wd/hub",

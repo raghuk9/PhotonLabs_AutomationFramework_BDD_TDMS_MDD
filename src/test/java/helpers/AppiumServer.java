@@ -32,6 +32,7 @@ public class AppiumServer {
 		builder.withIPAddress(host);
 		int port = getPort();
 		builder.usingPort(port);
+		builder.withArgument(() -> "--allow-insecure","chromedriver_autodownload");
 		builder.withLogFile(new File(curdir+"/Logs/log.txt"));
 		builder.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"));
 		service = AppiumDriverLocalService.buildService(builder);

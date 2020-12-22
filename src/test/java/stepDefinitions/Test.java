@@ -52,8 +52,7 @@ import api.zapi.zapi_utilities.ZapiTestMgmt;
 public class Test {
 	
 	public static void main(String[] args) throws Exception {
-		
-		ZapiTestMgmt.getInstance().getCycleId();
+//		ZapiTestMgmt.getInstance().getCycleId();
 //		sample();
 		
 	}

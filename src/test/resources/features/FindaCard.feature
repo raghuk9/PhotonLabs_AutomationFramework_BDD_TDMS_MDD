@@ -10,13 +10,12 @@ Scenario: Find a credit card for Personal Rewards Cash Back Balance Transfer
 	And the user clicks on Personal icon
 	And the user clicks on Rewards icon
 	And the user clicks on Cash Back icon
-	And the user clicks on Balance Transfer icon
+	And the user clicks on No Annual Fee icon
 	Then Validate application shows only the list of cards which is matching the above criteria
 	|Personal|
 	|Rewards|
 	|Cash Back|
-	|Balance Transfer|
-	
+	|No Annual Fee|
 	
 @Smoke @JPMC-17
 Scenario: Find a credit card for Business Rewards Cash Back
@@ -31,4 +30,4 @@ Scenario: Find a credit card for Business Rewards Cash Back
 	Then Validate application shows only the list of cards which is matching the above criteria
 	|Business|
 	|Rewards|
-	|Cash Back| 
+	|No Annual Fee|

@@ -77,7 +77,7 @@ public class WebPortal implements JPMCPlatform {
 	private void waitForElementVisibilityAndClick(WebElement element) throws IOException, ParseException, InterruptedException {
 		waitElementClickable(element);
 		try {
-			element.click();			
+			element.click();
 		}catch (TimeoutException e) {
 			
 		}
@@ -131,15 +131,19 @@ public class WebPortal implements JPMCPlatform {
 
 	public void launch() throws Exception {
 		try {
+			String os = System.getProperty("os.name");
 			HashMap<String, Object> chromePref =  new HashMap<String, Object>();
 			chromePref.put("intl.accept_languages", ConfigurationHelper.getLanguage());
 			String platformName = ConfigurationHelper.getPlatform().toLowerCase();
 			String browserName = ConfigurationHelper.getBrowserName().toLowerCase();
-			VideoRecorder.startRecording();
 			if (platformName.equalsIgnoreCase("webPortal_Dev")) {
 				switch (browserName) {
 				case "chrome":
-					System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver_70v");
+					if(os.equalsIgnoreCase("Windows")){
+						System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver.exe");
+					}else {
+						System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver_70v");
+					}
 					ChromeOptions options = new ChromeOptions();
 					options.addArguments("start-maximized");
 					options.addArguments("disable-infobars");
@@ -147,7 +151,11 @@ public class WebPortal implements JPMCPlatform {
 					driver = new ChromeDriver(options);
 					break;
 				case "firefox":
-					System.setProperty("webdriver.gecko.driver", "Drivers/geckodriver");
+					if(os.equalsIgnoreCase("Windows")){
+						System.setProperty("webdriver.chrome.driver", "Drivers/geckodriver.exe");
+					}else {
+						System.setProperty("webdriver.gecko.driver", "Drivers/geckodriver");
+					}
 					driver= new FirefoxDriver();
 				case "safari":
 					driver= new SafariDriver();
@@ -165,6 +173,7 @@ public class WebPortal implements JPMCPlatform {
 				pageLoadtime = pageLoad.getTime(TimeUnit.SECONDS);
 				pageLoad.reset();
 				System.out.println("Page Load Time : " + pageLoadtime);
+				VideoRecorder.startRecording();
 			} else if (platformName.equalsIgnoreCase("android_Web")) {
 				ConfigurationHelper.init();
 				DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -520,7 +529,8 @@ public class WebPortal implements JPMCPlatform {
 	}
 
 	@Override
-	public void validatePageNavigation(String pageTitle) {
+	public void validatePageNavigation(String pageTitle) throws InterruptedException {
+		Thread.sleep(3000);
 		Assert.assertEquals(pageTitle, driver.getTitle());
 	}
 
@@ -542,6 +552,11 @@ public class WebPortal implements JPMCPlatform {
 	@Override
 	public void clickOnCashBackIcon() throws Exception {
 		waitForElementVisibilityAndClick(home.getCashBackIcon());		
+	}
+
+	@Override
+	public void clickOnNoAnnualFeeIcon() throws Exception {
+		waitForElementVisibilityAndClick(home.getNoAnnualFeeIcon());
 	}
 
 	@Override
