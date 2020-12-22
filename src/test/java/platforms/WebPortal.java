@@ -246,13 +246,6 @@ public class WebPortal implements JPMCPlatform {
 	}
 
 	@Override
-	public File takeScreenshot() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
 	public void validateLogIn() throws Exception {
 		// TODO Auto-generated method stub
 
@@ -479,13 +472,6 @@ public class WebPortal implements JPMCPlatform {
 	public void validateLoginsignUpLink(String signUp) throws Exception {
 		textAssertion(home.getSignUpLink(), signUp);
 		switchToDefaultFrame();
-	}
-
-	@Override
-	public void validateSignuperrorMessage(String errorMessaage) throws Exception {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView();", home.getSsnNumberField());
-
 	}
 
 	@Override

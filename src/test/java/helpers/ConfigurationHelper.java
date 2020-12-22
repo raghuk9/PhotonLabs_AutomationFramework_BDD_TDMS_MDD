@@ -46,7 +46,7 @@ public class ConfigurationHelper {
 		return platformProperties;
 	}
 
-	public static String getFeatureFile() throws FileNotFoundException, IOException, ParseException {
+	public static String getFeatureFile() throws IOException, ParseException {
 		init();
 		return (String) platformProperties.get("featureFile");
 	}
@@ -59,36 +59,35 @@ public class ConfigurationHelper {
 		return lang;
 	}
 	
-	public static String getBaseUri() throws FileNotFoundException, IOException, ParseException {
+	public static String getBaseUri(){
 		return (String) platformProperties.get("baseUri_"+getLanguage());
 	}
 	
-	public static String getPlatformName() throws FileNotFoundException, IOException, ParseException {
+	public static String getPlatformName(){
 		return (String) platformProperties.get("platformName");
 	}
 	
-	public static String getDeviceName() throws FileNotFoundException, IOException, ParseException {
+	public static String getDeviceName(){
 		return (String) platformProperties.get("deviceName");
 	}
 	
-	public static String getPlatformVersion() throws FileNotFoundException, IOException, ParseException {
+	public static String getPlatformVersion(){
 		return (String) platformProperties.get("platformVersion");
 	}
 	
-	public static String getDriverUrl() throws FileNotFoundException, IOException, ParseException {
-//		return (String) platformProperties.get("driverUrl");
+	public static String getDriverUrl(){
 		return driverUrl;
 	}
 	
-	public static String getAppPackage() throws FileNotFoundException, IOException, ParseException {
+	public static String getAppPackage() {
 		return (String) platformProperties.get("appPackage");
 	}
 	
-	public static String getAppActivity() throws FileNotFoundException, IOException, ParseException {
+	public static String getAppActivity(){
 		return (String) platformProperties.get("appActivity");
 	}
 	
-	public static String getBrowserName() throws FileNotFoundException, IOException, ParseException {
+	public static String getBrowserName(){
 		String browserName = System.getProperty("browserName");
 		if(browserName==null) {
 			browserName = (String) platformProperties.get("browserName"); 
@@ -96,26 +95,8 @@ public class ConfigurationHelper {
 		return browserName; 
 	}
 	
-	public static String getUdid() throws FileNotFoundException, IOException, ParseException {
+	public static String getUdid() {
 		return (String) platformProperties.get("udid");
 	}
 	
 }
-
-// private static RunConfig runConfig;
-//
-// private static RunConfig getRunConfig() {
-// if (runConfig == null) {
-// try {
-// BufferedReader reader = new BufferedReader(new
-// FileReader("src/test/resources/testData/Run.config"));
-// Gson gson = new Gson();
-// runConfig = gson.fromJson(reader, RunConfig.class);
-// } catch (FileNotFoundException e) {
-// e.printStackTrace();
-// throw new RuntimeException("Unable to read Run.config");
-// }
-// }
-//
-// return runConfig;
-// }

@@ -42,7 +42,6 @@ public class AndroidPlatform implements MobilePlatform {
 
 	@Override
     public void launch() throws Exception {
-        //if (driver == null) {
             try {
             	ConfigurationHelper.init();
                 DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -71,7 +70,6 @@ public class AndroidPlatform implements MobilePlatform {
             } catch (Exception e) {
                 throw new Exception("Unable to connect to the Appium server.");
             }
-        //}
     }
 
     @Override
@@ -285,12 +283,6 @@ public class AndroidPlatform implements MobilePlatform {
         }
     }
 
-	@Override
-	public File takeScreenshot() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
     @Override
     public void validateLogOut() throws Exception {
         try {
@@ -438,12 +430,6 @@ public class AndroidPlatform implements MobilePlatform {
 	}
 
 	@Override
-	public void validateSignuperrorMessage(String errorMessaage) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void validateErrorMessageWhileSignUp(String errorMessage) throws Exception {
 		// TODO Auto-generated method stub
 		
@@ -520,7 +506,12 @@ public class AndroidPlatform implements MobilePlatform {
 		
 	}
 
-	@Override
+    @Override
+    public void clickOnNoAnnualFeeIcon() throws Exception {
+
+    }
+
+    @Override
 	public void clickOnBalanceTransferIcon() throws IOException, ParseException {
 		// TODO Auto-generated method stub
 		

@@ -3,7 +3,7 @@
   "featureFile": "src/test/resources/testData/WebFeatureData.xlsx",
   "baseUri_es": "https://www.chase.com/espanol",
   "baseUri_en-us": "https://www.chase.com",
-   "browserName":"chrome"
+  "browserName":"chrome"
  },
  "webPortal_Stg":{
   "featureFile": "src/test/resources/testData/WebFeatureData.xlsx",
@@ -29,5 +29,14 @@
   "featureFile": "src/test/resources/testData/WebFeatureData.xlsx",
   "baseUri_es": "https://www.chase.com/espanol",
   "baseUri_en-us": "https://www.chase.com"
-}
+},
+ "iOS":{
+  "platformName": "iOS",
+  "deviceName": "iPhone 8",
+  "platformVersion": "14",
+  "bundleId": "com.higi.main.stg",
+  "driverUrl": "http://127.0.0.1:4723/wd/hub",
+  "featureFile": "src/test/resources/testData/iOSFeatureData.xlsx",
+  "udid": "ce061606db0ccd1102"
+ }
 }

@@ -13,8 +13,6 @@ public interface JPMCPlatform extends FindaCard {
 
     void logOut() throws Exception;
 
-    File takeScreenshot() throws Exception;
-
     void validateLogIn() throws Exception;
 
     void validateLogOut() throws Exception;
@@ -68,8 +66,6 @@ public interface JPMCPlatform extends FindaCard {
     void validateLoginforgotLink(String forgotLink) throws Exception;
     
     void validateLoginsignUpLink(String signUp) throws Exception;
-    
-    void validateSignuperrorMessage(String errorMessaage) throws Exception;
     
     void visualValidtionOfLogo() throws Exception;
     
