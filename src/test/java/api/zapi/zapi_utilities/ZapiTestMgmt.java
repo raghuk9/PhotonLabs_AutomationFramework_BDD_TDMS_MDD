@@ -34,7 +34,7 @@ public class ZapiTestMgmt extends APICall {
     private String projectId = "";
     private String versionId = "";
     private String cycleId = "";
-    private Configuration config = null;
+    public static Configuration config = null;
     private DateFormat dateFormat = null;
     private Date date = null;
     private int cycleIteration = 1;

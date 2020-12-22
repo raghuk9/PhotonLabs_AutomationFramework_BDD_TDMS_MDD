@@ -140,7 +140,7 @@ public class WebPortal implements JPMCPlatform {
 			if (platformName.equalsIgnoreCase("webPortal_Dev")) {
 				switch (browserName) {
 				case "chrome":
-					if(os.equalsIgnoreCase("Windows")){
+					if(os.toLowerCase().contains("windows")){
 						System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver.exe");
 					}else {
 						System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver_70v");
@@ -152,7 +152,7 @@ public class WebPortal implements JPMCPlatform {
 					driver = new ChromeDriver(options);
 					break;
 				case "firefox":
-					if(os.equalsIgnoreCase("Windows")){
+					if(os.toLowerCase().contains("windows")){
 						System.setProperty("webdriver.chrome.driver", "Drivers/geckodriver.exe");
 					}else {
 						System.setProperty("webdriver.gecko.driver", "Drivers/geckodriver");
